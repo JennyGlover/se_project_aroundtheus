@@ -1,0 +1,13 @@
+.footer__copyright {
+  padding-top: 67px;
+  padding-bottom: 60px;
+  color: #545454;
+  font-family: "Inter";
+  font-weight: 400;
+}
+
+@media (max-width: 603px) {
+  .footer__copyright {
+    padding-left: 27px;
+  }
+}

@@ -1,0 +1,10 @@
+.header__logo {
+  max-width: 173px;
+  padding-top: 45px;
+  padding-bottom: 41px;
+}
+.hr {
+  opacity: 70%;
+  border: 1px solid #545454;
+  margin-bottom: 36.25px;
+}

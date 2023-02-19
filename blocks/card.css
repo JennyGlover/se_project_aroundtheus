@@ -1,0 +1,42 @@
+.card {
+  height: 361px;
+  position: relative;
+}
+
+.card__image {
+  width: 282px;
+  height: 282px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.card__description {
+  background-color: white;
+  width: 282px;
+  height: 79px;
+  border-radius: 0px 0px 10px 10px;
+  margin: 0;
+  position: relative;
+  top: -5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 900;
+}
+.card__title {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #000;
+  margin-left: 20px;
+}
+
+.card__heart {
+  margin-right: 20px;
+  width: 21px;
+}
+
+.card__heart:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}

@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Inter';
+    font-style:  normal;
+    font-weight: 100;
+    font-display: swap;
+    src: url("./fonts/Inter\ Web/") format("woff2"),
+         url("Inter-Thin.woff?v=3.19") format("woff");
+  }

@@ -1,0 +1,63 @@
+.profile {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 51px;
+  font-family: "Inter";
+  align-items: center;
+}
+.profile__bio {
+  display: flex;
+}
+
+.profile__avatar {
+  border-radius: 100%;
+  width: 120px;
+  margin-right: 48.75px;
+}
+.profile__username {
+  font-weight: 500;
+}
+.profile__occupation {
+  font-weight: 400;
+}
+
+.profile__edit-button {
+  background-color: black;
+  border: 1px solid white;
+  margin-left: 18px;
+  opacity: 1;
+}
+.profile__add-button {
+  background-color: black;
+  border: 1px solid white;
+  height: 52px;
+  opacity: 1;
+}
+.profile__add-button:hover,
+.profile__edit-button:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.profile__pencil-icon {
+  width: 10px;
+  padding: 7px;
+}
+.profile__plus-icon {
+  padding: 14px 64px;
+  width: 22px;
+}
+
+@media (max-width: 903px) {
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .profile__bio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
