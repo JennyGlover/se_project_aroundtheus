@@ -1,3 +1,8 @@
+.header {
+  margin: 0 auto;
+  max-width: 882px;
+}
+
 .header__logo {
   max-width: 173px;
   padding-top: 45px;
@@ -7,4 +12,11 @@
   opacity: 70%;
   border: 1px solid #545454;
   margin-bottom: 36.25px;
+}
+
+@media screen and (max-width: 1100px) {
+  .header {
+    margin: 0 20px;
+    max-width: calc(100% - 40px);
+  }
 }

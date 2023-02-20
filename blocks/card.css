@@ -20,15 +20,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: "Inter";
-  font-style: normal;
   font-weight: 900;
 }
 .card__title {
-  margin-top: 0;
-  margin-bottom: 0;
+  font-size: 24px;
+  font-weight: 900;
+  margin: 0;
   color: #000;
   margin-left: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .card__heart {
