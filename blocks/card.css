@@ -1,22 +1,15 @@
-.card {
-  height: 361px;
-  position: relative;
-}
-
 .card__image {
   width: 282px;
   height: 282px;
   border-radius: 10px 10px 0px 0px;
+  display: block;
 }
 
 .card__description {
   background-color: white;
-  width: 282px;
-  height: 79px;
+  min-height: 79px;
   border-radius: 0px 0px 10px 10px;
   margin: 0;
-  position: relative;
-  bottom: 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -31,6 +24,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+.card__like-button {
+  background: none;
+  padding: 0;
+  border: 0;
 }
 
 .card__heart {

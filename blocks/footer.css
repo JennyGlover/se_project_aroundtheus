@@ -19,18 +19,17 @@
 
 @media screen and (max-width: 919px) {
   .footer {
-    width: 100%;
     max-width: 581px;
   }
 }
 
 @media screen and (max-width: 620px) {
   .footer {
-    width: 100%;
     max-width: 282px;
   }
   .footer__copyright {
+    padding-top: 48px;
+    padding-bottom: 36px;
     font-size: 14px;
-    line-height: 1.2;
   }
 }

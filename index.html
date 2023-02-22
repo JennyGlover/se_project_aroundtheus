@@ -10,15 +10,14 @@
   </head>
   <body class="page">
     <div class="page__content">
+      <header class="header">
+        <img
+          src="images/logo.png"
+          class="header__logo"
+          alt="Around the US logo"
+        />
+      </header>
       <main class="content">
-        <header class="header">
-          <img
-            src="images/logo.png"
-            class="header__logo"
-            alt="Around the US logo"
-          />
-          <hr class="hr" />
-        </header>
         <section class="profile">
           <div class="profile__bio">
             <img
@@ -27,69 +26,112 @@
               class="profile__avatar"
             />
             <div class="profile__info">
-              <h1 class="profile__username">
-                Jacques Cousteau
-                <button class="profile__edit-button">
-                  <img
-                    src="images/pencil.svg"
-                    alt="pencil icon"
-                    class="profile__pencil-icon"
-                  />
-                </button>
-              </h1>
+              <h1 class="profile__username">Jacques Cousteau</h1>
+              <button class="profile__edit-button" type="button"></button>
+
               <p class="profile__occupation">Explorer</p>
             </div>
           </div>
-          <button class="profile__add-button">
-            <img
-              src="images/plus-icon.svg"
-              alt="plus icon"
-              class="profile__plus-icon"
-            />
-          </button>
+          <button class="profile__add-button" type="button"></button>
         </section>
         <section class="gallery page__section">
           <ul class="gallery__cards">
             <li class="card">
-              <img src="images/yosemite.jpg" alt="" class="card__image" />
+              <img
+                src="images/yosemite.jpg"
+                alt="Yosemite national park lake"
+                class="card__image"
+              />
               <div class="card__description">
                 <h2 class="card__title">Yosemite</h2>
-                <img src="images/heart.svg" alt="" class="card__heart" />
+                <button class="card__like-button" type="button">
+                  <img
+                    src="images/heart.svg"
+                    alt="like button"
+                    class="card__heart"
+                  />
+                </button>
               </div>
             </li>
             <li class="card">
-              <img src="images/lake-louise.jpg" alt="" class="card__image" />
+              <img
+                src="images/lake-louise.jpg"
+                alt="Lake Louise"
+                class="card__image"
+              />
               <div class="card__description">
                 <h2 class="card__title">Lake Louise</h2>
-                <img src="images/heart.svg" alt="" class="card__heart" />
+                <button class="card__like-button" type="button">
+                  <img
+                    src="images/heart.svg"
+                    alt="like button"
+                    class="card__heart"
+                  />
+                </button>
               </div>
             </li>
             <li class="card">
-              <img src="images/bald-mountains.jpg" alt="" class="card__image" />
+              <img
+                src="images/bald-mountains.jpg"
+                alt="Bald mountains"
+                class="card__image"
+              />
               <div class="card__description">
                 <h2 class="card__title">Bald Mountains</h2>
-                <img src="images/heart.svg" alt="" class="card__heart" />
+                <button class="card__like-button" type="button">
+                  <img
+                    src="images/heart.svg"
+                    alt="like button"
+                    class="card__heart"
+                  />
+                </button>
               </div>
             </li>
             <li class="card">
-              <img src="images/latemar.jpg" alt="" class="card__image" />
+              <img
+                src="images/latemar.jpg"
+                alt="Latemar Mountain"
+                class="card__image"
+              />
               <div class="card__description">
                 <h2 class="card__title">Latemar</h2>
-                <img src="images/heart.svg" alt="" class="card__heart" />
+                <button class="card__like-button" type="button">
+                  <img
+                    src="images/heart.svg"
+                    alt="like button"
+                    class="card__heart"
+                  />
+                </button>
               </div>
             </li>
             <li class="card">
-              <img src="images/vanoise.jpg" alt="" class="card__image" />
+              <img
+                src="images/vanoise.jpg"
+                alt="Vanoise national park"
+                class="card__image"
+              />
               <div class="card__description">
                 <h2 class="card__title">Vanoise National park</h2>
-                <img src="images/heart.svg" alt="" class="card__heart" />
+                <button class="card__like-button" type="button">
+                  <img
+                    src="images/heart.svg"
+                    alt="like button"
+                    class="card__heart"
+                  />
+                </button>
               </div>
             </li>
             <li class="card">
-              <img src="images/lago.jpg" alt="" class="card__image" />
+              <img src="images/lago.jpg" alt="Lago lake" class="card__image" />
               <div class="card__description">
                 <h2 class="card__title">Lago</h2>
-                <img src="images/heart.svg" alt="" class="card__heart" />
+                <button class="card__like-button" type="button">
+                  <img
+                    src="images/heart.svg"
+                    alt="like button"
+                    class="card__heart"
+                  />
+                </button>
               </div>
             </li>
           </ul>

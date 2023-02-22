@@ -12,9 +12,3 @@
   margin-bottom: 0;
   margin-top: 0;
 }
-
-@media screen and (max-width: 568px) {
-  .gallery__cards {
-    padding: 15px 0 18px;
-  }
-}
