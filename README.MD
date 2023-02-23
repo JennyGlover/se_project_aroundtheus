@@ -1,6 +1,6 @@
 # Around The US Responsive project
 
-This is the third project of the Software Engineer program at Practicum by Yandex. It was created using HTML and CSS, based on a Figma design file.
+This is the third project of the Software Engineer program at Practicum by Yandex. It was created using HTML and CSS, based on a responsive design file in Figma.
 
 ## Project features
 
