@@ -1,3 +1,4 @@
+//Image cards
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -25,27 +26,78 @@ const initialCards = [
   },
 ];
 
+//finding the card template and gallery section
+const cardTemplate = document.querySelector("#profile__card-template").content;
+const galleryDisplay = document.querySelector(".gallery__cards");
+//finding card title and image
+
+//function that displays cards
+function getCardElement() {
+  //cloning the card template
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  galleryDisplay.append(cardElement);
+
+  //adding the cloned card template to the gallery display
+}
+
+for (let i = 0; i < initialCards.length; i++) {
+  getCardElement();
+  const cardTitle = galleryDisplay.querySelector(".card__title");
+  const cardImage = galleryDisplay.querySelector(".card__image");
+  cardImage.setAttribute("src", initialCards[i].link);
+  cardTitle.innerHTML = initialCards[i].name;
+}
+
+//finding the edit button
 const editButton = document.querySelector(".profile__edit-button");
-console.log(editButton);
-let profiletemplate = document.querySelector("#profile-template").content;
-let modalDisplay = document.querySelector(".modal-display");
-let oldMan = document.querySelector(".profile__avatar");
-let profileModal = profiletemplate
+
+//finding the template and modal display section
+const profileTemplate = document.querySelector("#profile-template").content;
+const modalDisplay = document.querySelector(".modal-display");
+
+//cloning the modal template
+const profileModal = profileTemplate
   .querySelector(".modal__container")
   .cloneNode(true);
 
-let modalCloseButton = profileModal.querySelector(".modal__close-button");
+//Finding X button for closing the modal
+const modalCloseButton = profileModal.querySelector(".modal__close-button");
+
+//adding the cloned modal to the modal display area
 modalDisplay.append(profileModal);
 
+//finding form components
+const nameInput = profileModal.querySelector("#name");
+const descriptionInput = profileModal.querySelector("#about-me");
+const saveButton = profileModal.querySelector(".modal__save-button");
+const userName = document.querySelector(".profile__username");
+const userOccupation = document.querySelector(".profile__occupation");
+
+//function that opens modal
 function displayModal(e) {
   e.preventDefault();
   modalDisplay.classList.add("modal__opened");
 }
 
+//function that closes modal
 function closeModal(e) {
   e.preventDefault();
   modalDisplay.classList.remove("modal__opened");
 }
 
+//function than save inputs unto
+function handleProfileFormSubmit(e) {
+  e.preventDefault();
+  if (nameInput.value.length > 0) {
+    userName.innerText = nameInput.value;
+  }
+  if (descriptionInput.value.length > 0) {
+    userOccupation.innerText = descriptionInput.value;
+  }
+  modalDisplay.classList.remove("modal__opened");
+}
+
+//event listenters for buttons
 editButton.addEventListener("click", displayModal);
 modalCloseButton.addEventListener("click", closeModal);
+saveButton.addEventListener("click", handleProfileFormSubmit);

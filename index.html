@@ -35,6 +35,9 @@
           <button class="profile__add-button" type="button"></button>
         </section>
         <section class="modal-display"></section>
+        <section class="gallery page__section">
+          <ul class="gallery__cards"></ul>
+        </section>
         <template id="profile-template">
           <div class="modal__container">
             <h2 class="modal__heading">Edit profile</h2>
@@ -60,108 +63,21 @@
             </fieldset>
           </div>
         </template>
-        <section class="gallery page__section">
-          <ul class="gallery__cards">
-            <li class="card">
-              <img
-                src="images/yosemite.jpg"
-                alt="Yosemite national park lake"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Yosemite</h2>
-                <button class="card__like-button" type="button">
-                  <img
-                    src="images/heart.svg"
-                    alt="like button"
-                    class="card__heart"
-                  />
-                </button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="images/lake-louise.jpg"
-                alt="Lake Louise"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Lake Louise</h2>
-                <button class="card__like-button" type="button">
-                  <img
-                    src="images/heart.svg"
-                    alt="like button"
-                    class="card__heart"
-                  />
-                </button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="images/bald-mountains.jpg"
-                alt="Bald mountains"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Bald Mountains</h2>
-                <button class="card__like-button" type="button">
-                  <img
-                    src="images/heart.svg"
-                    alt="like button"
-                    class="card__heart"
-                  />
-                </button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="images/latemar.jpg"
-                alt="Latemar Mountain"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Latemar</h2>
-                <button class="card__like-button" type="button">
-                  <img
-                    src="images/heart.svg"
-                    alt="like button"
-                    class="card__heart"
-                  />
-                </button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="images/vanoise.jpg"
-                alt="Vanoise national park"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Vanoise National park</h2>
-                <button class="card__like-button" type="button">
-                  <img
-                    src="images/heart.svg"
-                    alt="like button"
-                    class="card__heart"
-                  />
-                </button>
-              </div>
-            </li>
-            <li class="card">
-              <img src="images/lago.jpg" alt="Lago lake" class="card__image" />
-              <div class="card__description">
-                <h2 class="card__title">Lago</h2>
-                <button class="card__like-button" type="button">
-                  <img
-                    src="images/heart.svg"
-                    alt="like button"
-                    class="card__heart"
-                  />
-                </button>
-              </div>
-            </li>
-          </ul>
-        </section>
+        <template id="profile__card-template">
+          <li class="card">
+            <img class="card__image" />
+            <div class="card__description">
+              <h2 class="card__title"></h2>
+              <button class="card__like-button" type="button">
+                <img
+                  src="images/heart.svg"
+                  alt="like button"
+                  class="card__heart"
+                />
+              </button>
+            </div>
+          </li>
+        </template>
       </main>
       <footer class="footer">
         <p class="footer__copyright">© 2022 Around The U.S.</p>
