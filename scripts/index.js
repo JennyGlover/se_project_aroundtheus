@@ -32,20 +32,30 @@ const galleryDisplay = document.querySelector(".gallery__cards");
 //finding card title and image
 
 //function that displays cards
-function getCardElement() {
+function getCardElement(data) {
   //cloning the card template
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  galleryDisplay.append(cardElement);
 
   //adding the cloned card template to the gallery display
+  galleryDisplay.append(cardElement);
+
+  //finding the card title and image
+  const cardTitle = cardElement.querySelector(".card__title");
+  const cardImage = cardElement.querySelector(".card__image");
+
+  //setting the attributes of the image
+  cardImage.setAttribute("src", data.link);
+  cardImage.setAttribute("alt", data.name);
+
+  //setting the card title
+  cardTitle.innerHTML = data.name;
+
+  //adding the cloned card to the dallery display
+  galleryDisplay.appendChild(cardElement);
 }
 
 for (let i = 0; i < initialCards.length; i++) {
-  getCardElement();
-  const cardTitle = galleryDisplay.querySelector(".card__title");
-  const cardImage = galleryDisplay.querySelector(".card__image");
-  cardImage.setAttribute("src", initialCards[i].link);
-  cardTitle.innerHTML = initialCards[i].name;
+  getCardElement(initialCards[i]);
 }
 
 //finding the edit button
