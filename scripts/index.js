@@ -98,10 +98,11 @@ function closeModal(e) {
 //function than save inputs unto
 function handleProfileFormSubmit(e) {
   e.preventDefault();
-  if (nameInput.value.length > 0) {
+  const minLength = 0;
+  if (nameInput.value.length > minLength) {
     userName.innerText = nameInput.value;
   }
-  if (descriptionInput.value.length > 0) {
+  if (descriptionInput.value.length > minLength) {
     userOccupation.innerText = descriptionInput.value;
   }
   modalDisplay.classList.remove("modal__opened");
