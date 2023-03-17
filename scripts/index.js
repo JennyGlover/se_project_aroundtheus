@@ -64,7 +64,7 @@ for (let i = 0; i < initialCards.length; i++) {
 const editButton = document.querySelector(".profile__edit-button");
 
 //finding the template and modal display section
-const profileModal = document.querySelector(".profile__modal");
+const profileModal = document.querySelector(".profile-modal");
 
 //finding the form
 const modalForm = document.querySelector(".modal__form-container");
