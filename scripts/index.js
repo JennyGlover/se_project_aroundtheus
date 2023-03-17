@@ -29,12 +29,17 @@ const initialCards = [
 //finding the card template and gallery section
 const cardTemplate = document.querySelector("#profile__card-template").content;
 const galleryDisplay = document.querySelector(".gallery__cards");
-//finding card title and image
+
+//function that creates cards
+function createCard(item) {
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  return cardElement;
+}
 
 //function that displays cards
 function getCardElement(data) {
-  //cloning the card template
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  //creating the card template
+  const cardElement = createCard(data);
 
   //adding the cloned card template to the gallery display
   galleryDisplay.append(cardElement);
@@ -49,9 +54,6 @@ function getCardElement(data) {
 
   //setting the card title
   cardTitle.innerHTML = data.name;
-
-  //adding the cloned card to the dallery display
-  galleryDisplay.appendChild(cardElement);
 }
 
 for (let i = 0; i < initialCards.length; i++) {
@@ -62,37 +64,32 @@ for (let i = 0; i < initialCards.length; i++) {
 const editButton = document.querySelector(".profile__edit-button");
 
 //finding the template and modal display section
-const profileTemplate = document.querySelector("#profile-template").content;
-const modalDisplay = document.querySelector(".modal-display");
+const profileModal = document.querySelector(".profile__modal");
 
-//cloning the modal template
-const profileModal = profileTemplate
-  .querySelector(".modal__container")
-  .cloneNode(true);
+//finding the form
+const modalForm = document.querySelector(".modal__form-container");
 
 //Finding X button for closing the modal
-const modalCloseButton = profileModal.querySelector(".modal__close-button");
-
-//adding the cloned modal to the modal display area
-modalDisplay.append(profileModal);
+const modalCloseButton = document.querySelector(".modal__close-button");
 
 //finding form components
-const nameInput = profileModal.querySelector("#name");
-const descriptionInput = profileModal.querySelector("#about-me");
-const saveButton = profileModal.querySelector(".modal__save-button");
+const nameInput = document.querySelector("#name");
+const descriptionInput = document.querySelector("#about-me");
+const saveButton = document.querySelector(".modal__save-button");
 const userName = document.querySelector(".profile__username");
 const userOccupation = document.querySelector(".profile__occupation");
-
 //function that opens modal
 function displayModal(e) {
   e.preventDefault();
-  modalDisplay.classList.add("modal__opened");
+  profileModal.classList.add("modal_opened");
+  nameInput.value = userName.textContent;
+  descriptionInput.value = userOccupation.textContent;
 }
 
 //function that closes modal
 function closeModal(e) {
   e.preventDefault();
-  modalDisplay.classList.remove("modal__opened");
+  profileModal.classList.remove("modal_opened");
 }
 
 //function than save inputs unto
@@ -100,15 +97,15 @@ function handleProfileFormSubmit(e) {
   e.preventDefault();
   const minLength = 0;
   if (nameInput.value.length > minLength) {
-    userName.innerText = nameInput.value;
+    userName.textContent = nameInput.value;
   }
   if (descriptionInput.value.length > minLength) {
-    userOccupation.innerText = descriptionInput.value;
+    userOccupation.textContent = descriptionInput.value;
   }
-  modalDisplay.classList.remove("modal__opened");
+  closeModal(e);
 }
 
 //event listenters for buttons
 editButton.addEventListener("click", displayModal);
 modalCloseButton.addEventListener("click", closeModal);
-saveButton.addEventListener("click", handleProfileFormSubmit);
+modalForm.addEventListener("submit", handleProfileFormSubmit);

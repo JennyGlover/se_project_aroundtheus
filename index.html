@@ -34,12 +34,8 @@
           </div>
           <button class="profile__add-button" type="button"></button>
         </section>
-        <section class="modal-display"></section>
-        <section class="gallery page__section">
-          <ul class="gallery__cards"></ul>
-        </section>
-        <template id="profile-template">
-          <div class="modal__container">
+        <section class="modal profile__modal">
+          <form class="modal__form-container">
             <h2 class="modal__heading">Edit profile</h2>
             <fieldset class="modal__fieldset">
               <button type="button" class="modal__close-button"></button>
@@ -61,8 +57,12 @@
               />
               <button type="submit" class="modal__save-button">Save</button>
             </fieldset>
-          </div>
-        </template>
+          </form>
+        </section>
+        <section class="gallery page__section">
+          <ul class="gallery__cards"></ul>
+        </section>
+
         <template id="profile__card-template">
           <li class="card">
             <img class="card__image" />
@@ -76,6 +76,13 @@
                 />
               </button>
             </div>
+            <button class="card__trash-button" type="button">
+              <img
+                src="images/trash-solid.svg"
+                alt="trash button"
+                class="card__trash"
+              />
+            </button>
           </li>
         </template>
       </main>

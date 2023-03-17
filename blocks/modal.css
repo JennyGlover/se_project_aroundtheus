@@ -2,7 +2,7 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-display {
+.modal {
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
@@ -10,16 +10,15 @@
   left: 0;
   right: 0;
   margin: 0 auto;
-  z-index: -2;
   display: none;
 }
 
-.modal__opened {
+.modal_opened {
   display: block;
   z-index: 99999;
 }
 
-.modal__container {
+.modal__form-container {
   margin: 0 auto;
   position: absolute;
   left: 0;
@@ -91,7 +90,7 @@
 }
 
 @media screen and (max-width: 620px) {
-  .modal__container {
+  .modal__form-container {
     position: relative;
     background-color: white;
     max-width: 282px;
