@@ -33,6 +33,17 @@ const galleryDisplay = document.querySelector(".gallery__cards");
 //function that creates cards
 function createCard(item) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+
+  //finding the card title and image
+  const cardTitle = cardElement.querySelector(".card__title");
+  const cardImage = cardElement.querySelector(".card__image");
+
+  //setting the attributes of the image
+  cardImage.setAttribute("src", item.link);
+  cardImage.setAttribute("alt", item.name);
+
+  //setting the card title
+  cardTitle.textContent = item.name;
   return cardElement;
 }
 
@@ -43,17 +54,6 @@ function getCardElement(data) {
 
   //adding the cloned card template to the gallery display
   galleryDisplay.append(cardElement);
-
-  //finding the card title and image
-  const cardTitle = cardElement.querySelector(".card__title");
-  const cardImage = cardElement.querySelector(".card__image");
-
-  //setting the attributes of the image
-  cardImage.setAttribute("src", data.link);
-  cardImage.setAttribute("alt", data.name);
-
-  //setting the card title
-  cardTitle.innerHTML = data.name;
 }
 
 for (let i = 0; i < initialCards.length; i++) {
