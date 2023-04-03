@@ -9,7 +9,7 @@
 }
 
 .card__description {
-  background-color: white;
+  background-color: rgb(187, 116, 116);
   min-height: 79px;
   border-radius: 0px 0px 10px 10px;
   margin: 0;
