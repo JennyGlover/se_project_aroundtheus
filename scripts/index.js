@@ -56,10 +56,13 @@ function getCardElement(data) {
   galleryDisplay.append(cardElement);
 }
 
-initialCards.forEach((card) => {
-  getCardElement(initialCards[card]);
+initialCards.forEach((initialCard) => {
+  getCardElement(initialCard);
 })
 
+// for (let i = 0; i < initialCards.length; i++) {
+//   getCardElement(initialCards[i]);
+// }
 
 //finding the edit button
 const editButton = document.querySelector(".profile__edit-button");
