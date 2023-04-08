@@ -55,10 +55,19 @@ function getCardElement(data) {
   //adding the cloned card template to the gallery display
   galleryDisplay.append(cardElement);
 }
+//function that prepends card
+function getUserCardElement(data) {
+  //creating the card template
+  const cardElement = createCard(data);
 
+  //adding the cloned card template to the gallery display
+  galleryDisplay.prepend(cardElement);
+}
 initialCards.forEach((initialCard) => {
   getCardElement(initialCard);
 })
+
+
 
 
 //finding the edit button
@@ -82,8 +91,6 @@ const nameInput = document.querySelector("#name");
 const titleInput = document.querySelector("#title");
 const imgUrlInput = document.querySelector("#image-url");
 const descriptionInput = document.querySelector("#about-me");
-const saveButton = document.querySelector(".modal__save-button");
-const imageModalsaveButton = document.querySelector(".modal__img-save-button");
 const userName = document.querySelector(".profile__username");
 const cardTitle = document.querySelector("card__title")
 //const imgSrc = document.querySelector()
@@ -100,8 +107,6 @@ function displayModal(e) {
 function displayImgModal(e) {
   e.preventDefault();
   imgModal.classList.add("modal_opened");
-  titleInput.value = cardTitle.textContent;
-  cardTitle.setAttribute(src, imgUrlInput.value );
 }
 
 //function that closes profile modal
@@ -128,18 +133,26 @@ function handleProfileFormSubmit(e) {
   }
   closeModal(e);
 }
+
+
 //function that save imgs modal inputs 
 function handleImgFormSubmit(e) {
   e.preventDefault();
   const minLength = 0;
-  if (titleInput.value.length > minLength) {
-    titleInput.value = cardTitle.textContent;
-  }
-  if (imgUrlInput.value.length > minLength) {
-    cardTitle.setAttribute(src, imgUrlInput.value );
+
+  if (titleInput.value.length > minLength && imgUrlInput.value.length > minLength ) {
+ 
+  const newCards =[{
+    name: titleInput.value,
+    link: imgUrlInput.value
+  }]
+  newCards.forEach((newCard) => {
+    getUserCardElement(newCard);
+  })
+
   }
   closeImgModal(e);
-}
+  }
 
 
 //event listenters profile modal for buttons
