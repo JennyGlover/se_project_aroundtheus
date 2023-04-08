@@ -92,8 +92,9 @@ const titleInput = document.querySelector("#title");
 const imgUrlInput = document.querySelector("#image-url");
 const descriptionInput = document.querySelector("#about-me");
 const userName = document.querySelector(".profile__username");
-const cardTitle = document.querySelector("card__title")
-//const imgSrc = document.querySelector()
+const cardTitle = document.querySelector(".card__title")
+const likeButtons = document.querySelectorAll(".card__heart")
+
 const userOccupation = document.querySelector(".profile__occupation");
 
 //function that opens profile modal
@@ -155,12 +156,25 @@ function handleImgFormSubmit(e) {
   }
 
 
-//event listenters profile modal for buttons
+//event listenners profile modal for buttons
 editButton.addEventListener("click", displayModal);
 modalCloseButton.addEventListener("click", closeModal);
 modalForm.addEventListener("submit", handleProfileFormSubmit);
 
-//event listenters for img modal buttons
+//event listenners for img modal buttons
 addImgButton.addEventListener("click", displayImgModal);
 imgModalCloseButton.addEventListener("click", closeImgModal);
 imgModalForm.addEventListener("submit", handleImgFormSubmit);
+
+
+//event listenners for like button
+galleryDisplay.addEventListener("click", function(event){
+
+  if(event.target && event.target.matches(".card__heart")) {  const likeButton = event.target;
+    if(likeButton.getAttribute("src") === "images/heart.svg"){
+      likeButton.setAttribute("src", "images/filled-heart.png");
+    } else if (likeButton.getAttribute("src") === "images/filled-heart.png"){
+      likeButton.setAttribute("src", "images/heart.svg");
+    }
+  }
+});
