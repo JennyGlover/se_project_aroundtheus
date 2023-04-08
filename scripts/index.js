@@ -67,9 +67,6 @@ initialCards.forEach((initialCard) => {
   getCardElement(initialCard);
 })
 
-
-
-
 //finding the edit button
 const editButton = document.querySelector(".profile__edit-button");
 const addImgButton = document.querySelector(".profile__add-button");
@@ -93,8 +90,6 @@ const imgUrlInput = document.querySelector("#image-url");
 const descriptionInput = document.querySelector("#about-me");
 const userName = document.querySelector(".profile__username");
 const cardTitle = document.querySelector(".card__title")
-const likeButtons = document.querySelectorAll(".card__heart")
-
 const userOccupation = document.querySelector(".profile__occupation");
 
 //function that opens profile modal
@@ -135,7 +130,6 @@ function handleProfileFormSubmit(e) {
   closeModal(e);
 }
 
-
 //function that save imgs modal inputs 
 function handleImgFormSubmit(e) {
   e.preventDefault();
@@ -155,26 +149,39 @@ function handleImgFormSubmit(e) {
   closeImgModal(e);
   }
 
-
-//event listenners profile modal for buttons
+//event listeners profile modal for buttons
 editButton.addEventListener("click", displayModal);
 modalCloseButton.addEventListener("click", closeModal);
 modalForm.addEventListener("submit", handleProfileFormSubmit);
 
-//event listenners for img modal buttons
+//event listeners for img modal buttons
 addImgButton.addEventListener("click", displayImgModal);
 imgModalCloseButton.addEventListener("click", closeImgModal);
 imgModalForm.addEventListener("submit", handleImgFormSubmit);
 
 
-//event listenners for like button
-galleryDisplay.addEventListener("click", function(event){
-
-  if(event.target && event.target.matches(".card__heart")) {  const likeButton = event.target;
+//event listener for current & future prepended card like buttons
+galleryDisplay.addEventListener("click", function(e){
+  //check if the target is a heart icon
+  if(e.target && e.target.matches(".card__heart")) {  
+    const likeButton = e.target;
     if(likeButton.getAttribute("src") === "images/heart.svg"){
       likeButton.setAttribute("src", "images/filled-heart.png");
     } else if (likeButton.getAttribute("src") === "images/filled-heart.png"){
       likeButton.setAttribute("src", "images/heart.svg");
     }
   }
+
 });
+
+//event listener for current & future trash buttons
+galleryDisplay.addEventListener("click", function(e){
+//check if the target is a trash icon
+ if(e.target && e.target.matches(".card__trash")){
+  const trashButton = e.target;
+  alert("button clicked")
+  trashButton.parentNode.parentNode.remove();
+ }
+
+})
+

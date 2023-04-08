@@ -36,6 +36,7 @@
 .card__trash-button {
   border: none;
   background-color: transparent;
+  cursor: pointer;
 }
 .card__heart {
   margin-right: 20px;
