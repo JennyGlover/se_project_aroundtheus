@@ -82,6 +82,7 @@ const imgModalForm = document.querySelector(".modal__img-form-container");
 //Finding X button for closing the modals
 const modalCloseButton = document.querySelector(".modal__close-button");
 const imgModalCloseButton = document.querySelector(".modal__img-close-button");
+const imgDisplayModalCloseButton = document.querySelector(".modal__img-display-close-button");
 
 //finding form components
 const nameInput = document.querySelector("#name");
@@ -118,6 +119,14 @@ function closeImgModal(e) {
   e.preventDefault();
   imgModal.classList.remove("modal_opened");
 }
+
+//function that closes img display modal
+function closeImgDisplayModal(e) {
+  e.preventDefault();
+  imgDisplayModal.classList.remove("modal_opened");
+}
+
+
 
 //function that saves profile modal inputs 
 function handleProfileFormSubmit(e) {
@@ -186,19 +195,30 @@ galleryDisplay.addEventListener("click", function(e){
 
 })
 
+//opening the display
 galleryDisplay.addEventListener("click", function(e){
   //check if the target is a card image
    if(e.target && e.target.matches(".card__image")){
     const cardImageElement = e.target;
     const displayImage = cardImageElement.getAttribute("src")
+    const displayText = cardImageElement.getAttribute("alt")
+
 // function that opens img display
   imgDisplayModal.classList.add("modal_opened");
   const modalImage = document.querySelector(".modal__image-display")
+  const modalText = document.querySelector(".img-display-modal__paragraph")
   modalImage.setAttribute("src", displayImage)
+  modalText.textContent = displayText
   // cardImageElement.setAttribute("src", displayImage);
 
    }
   
   })
+
+  //closing the display
+imgDisplayModal.addEventListener("click", closeImgDisplayModal)
+
+
+
 
 
