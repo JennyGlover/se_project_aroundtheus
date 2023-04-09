@@ -44,6 +44,33 @@ function createCard(item) {
 
   //setting the card title
   cardTitle.textContent = item.name;
+
+  cardElement.addEventListener("click", function(e){
+    //liking cards
+    if (e.target && e.target.matches(".card__heart")) {
+      e.target.classList.toggle("card__heart-active");
+    }
+
+  //removing cards
+    if(e.target && e.target.matches(".card__trash")){
+      const trashButton = e.target;
+      trashButton.closest(".card").remove();
+     }
+    
+  //Opening display
+   if(e.target && e.target.matches(".card__image")){
+    const cardImageElement = e.target;
+    const displayImage = cardImageElement.getAttribute("src")
+    const displayText = cardImageElement.getAttribute("alt")
+
+  openPopup( imgDisplayModal); 
+  displayModalImage.setAttribute("src", displayImage)
+  displayModalText.textContent = displayText
+
+   }
+  
+  });
+
   return cardElement;
 }
 
@@ -59,10 +86,12 @@ function getCardElement(data) {
 function getUserCardElement(data) {
   //creating the card template
   const cardElement = createCard(data);
-
+ 
   //adding the cloned card template to the gallery display
   galleryDisplay.prepend(cardElement);
+
 }
+
 initialCards.forEach(getCardElement);
 
 //finding the edit button
@@ -188,42 +217,6 @@ addImgButton.addEventListener("click", displayImgModal);
 imgModalForm.addEventListener("submit", handleImgFormSubmit);
 
 
-//event listener for current & future prepended card like buttons
-galleryDisplay.addEventListener("click", function(e){
-  //check if the target is a heart icon
-  alert(e.target.classList)
-  if (e.target && e.target.matches(".card__heart")) {
-    e.target.classList.toggle("card__heart-active");
-  }
-});
-
-//event listener for current & future trash buttons
-galleryDisplay.addEventListener("click", function(e){
-//check if the target is a trash icon
- if(e.target && e.target.matches(".card__trash")){
-  const trashButton = e.target;
-  trashButton.closest(".card").remove();
- }
-
-})
-
-//opening the display
-galleryDisplay.addEventListener("click", function(e){
-  //check if the target is a card image
-   if(e.target && e.target.matches(".card__image")){
-    const cardImageElement = e.target;
-    const displayImage = cardImageElement.getAttribute("src")
-    const displayText = cardImageElement.getAttribute("alt")
-
-// function that opens img display
-  imgDisplayModal.classList.add("modal_opened");
-  displayModalImage.setAttribute("src", displayImage)
-  displayModalText.textContent = displayText
-  // cardImageElement.setAttribute("src", displayImage);
-
-   }
-  
-  })
 
   
 

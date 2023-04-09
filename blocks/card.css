@@ -40,12 +40,16 @@
 }
 .card__heart {
   margin-right: 20px;
-  width: 24px;
-  stroke:"black";
-  fill: white;
+  width: 21px;
+  display: block;
+ height: 100%;
+ cursor: pointer;
+ background-image: url(/images/heart.png);
+
 }
 .card__heart-active{
-  fill:"black";
+  background-image: url(/images/heartBlack.png);
+ 
 
 }
 .card__trash {
