@@ -44,13 +44,10 @@
   display: block;
  height: 100%;
  cursor: pointer;
- background-image: url(/images/heart.png);
-
+ background-image: url(/images/heart.png) no-repeat contain;
 }
 .card__heart-active{
   background-image: url(/images/heartBlack.png);
- 
-
 }
 .card__trash {
   width: 21px;
