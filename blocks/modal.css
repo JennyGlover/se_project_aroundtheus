@@ -1,6 +1,4 @@
-.profile__modal, .img__modal {
-  background-color: rgba(0, 0, 0, 0.5);
-}
+
 .modal {
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -62,7 +60,7 @@
   margin-top: 10px;
   margin-bottom: 0;
 }
-.modal__close-button:hover, .modal__img-close-button:hover {
+.modal__close-button:hover {
   opacity: 60%;
 }
 .modal__heading {

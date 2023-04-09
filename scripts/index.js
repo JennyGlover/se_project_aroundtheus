@@ -72,17 +72,17 @@ const editButton = document.querySelector(".profile__edit-button");
 const addImgButton = document.querySelector(".profile__add-button");
 
 //finding the modals display section
-const profileModal = document.querySelector(".profile__modal");
-const imgModal = document.querySelector(".img__modal");
-const imgDisplayModal = document.querySelector(".display__modal")
+const profileModal = document.querySelector(".profile-modal");
+const imgModal = document.querySelector(".img-modal");
+const imgDisplayModal = document.querySelector(".display-modal")
 //finding the forms
 const modalForm = document.querySelector(".modal__container");
-const imgModalForm = document.querySelector(".img__modal-container");
+const imgModalForm = document.querySelector(".img-modal__container");
 
 //Finding X button for closing the modals
 const modalCloseButton = document.querySelector(".modal__close-button");
-const imgModalCloseButton = document.querySelector(".img__modal-close-button");
-const imgDisplayModalCloseButton = document.querySelector(".display__modal-close-button");
+const imgModalCloseButton = document.querySelector(".img-modal__close-button");
+const imgDisplayModalCloseButton = document.querySelector(".display-modal__close-button");
 
 //finding form components
 const nameInput = document.querySelector("#name");
