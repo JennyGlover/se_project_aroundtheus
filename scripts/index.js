@@ -74,7 +74,7 @@ const addImgButton = document.querySelector(".profile__add-button");
 //finding the modals display section
 const profileModal = document.querySelector(".profile-modal");
 const imgModal = document.querySelector(".img-modal");
-
+const imgDisplayModal = document.querySelector(".img-display-modal")
 //finding the forms
 const modalForm = document.querySelector(".modal__form-container");
 const imgModalForm = document.querySelector(".modal__img-form-container");
@@ -92,6 +92,7 @@ const userName = document.querySelector(".profile__username");
 const cardTitle = document.querySelector(".card__title")
 const userOccupation = document.querySelector(".profile__occupation");
 
+
 //function that opens profile modal
 function displayModal(e) {
   e.preventDefault();
@@ -104,6 +105,7 @@ function displayImgModal(e) {
   e.preventDefault();
   imgModal.classList.add("modal_opened");
 }
+
 
 //function that closes profile modal
 function closeModal(e) {
@@ -179,9 +181,24 @@ galleryDisplay.addEventListener("click", function(e){
 //check if the target is a trash icon
  if(e.target && e.target.matches(".card__trash")){
   const trashButton = e.target;
-  alert("button clicked")
   trashButton.parentNode.parentNode.remove();
  }
 
 })
+
+galleryDisplay.addEventListener("click", function(e){
+  //check if the target is a card image
+   if(e.target && e.target.matches(".card__image")){
+    const cardImageElement = e.target;
+    const displayImage = cardImageElement.getAttribute("src")
+// function that opens img display
+  imgDisplayModal.classList.add("modal_opened");
+  const modalImage = document.querySelector(".modal__image-display")
+  modalImage.setAttribute("src", displayImage)
+  // cardImageElement.setAttribute("src", displayImage);
+
+   }
+  
+  })
+
 

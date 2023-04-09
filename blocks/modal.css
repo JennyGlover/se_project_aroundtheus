@@ -12,7 +12,16 @@
   margin: 0 auto;
   display: none;
 }
-
+.modal__image-display{
+  max-width: 75vw;
+  max-height: 75vh;
+  margin: 0 auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 12%;
+  display: block;
+}
 .modal_opened {
   display: block;
   z-index: 99999;
@@ -30,7 +39,7 @@
   border-radius: 10px;
 }
 
-.modal__close-button, .modal__img-close-button {
+.modal__close-button, .modal__img-close-button, .modal__img-display-close-button {
   position: absolute;
   background: url("../images/close\ icon.svg") no-repeat center / auto 40px;
   width: 40px;
