@@ -18,8 +18,8 @@
   margin: 0 auto;
     position: absolute;
     left: 50%;
-    top: 13%; 
-    transform: translate(-50%, 0); 
+    top: 13%;
+    transform: translate(-50% ,0);
     display: block; 
 }
 .modal__image-display{
@@ -60,7 +60,7 @@
   font-size: 12px;
   line-height: 14.52px;
   margin-top: 10px;
-  margin-bottom: 0 ;
+  margin-bottom: 0;
 }
 .modal__close-button:hover, .modal__img-close-button:hover {
   opacity: 60%;
