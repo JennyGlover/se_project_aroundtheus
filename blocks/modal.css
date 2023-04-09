@@ -1,4 +1,4 @@
-.profile-modal, .img-modal {
+.profile__modal, .img__modal {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -10,18 +10,25 @@
   left: 0;
   right: 0;
   margin: 0 auto;
-  display: none;
+  opacity: 0;
+  z-index: 99999;
+  transition: opacity 1s, visibility 0s 1s;
+  visibility: hidden;
 }
 
-.modal__img-container{
+
+
+
+.modal__display-container{
   margin: 0 auto;
     position: absolute;
     left: 50%;
-    top: 17%; 
+    top: 13%; 
     transform: translate(-50%, 0); 
     display: block; 
   
 }
+
 .modal__image-display{
   max-width: 75vw;
   max-height: 75vh;
@@ -30,9 +37,14 @@
 .modal_opened {
   display: block;
   z-index: 99999;
+   visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.5s linear;
+
 }
 
-.modal__form-container, .modal__img-form-container{
+
+.modal__container{
   margin: 0 auto;
   position: absolute;
   left: 0;
@@ -44,7 +56,7 @@
   border-radius: 10px;
 }
 
-.modal__close-button, .modal__img-close-button, .modal__img-display-close-button {
+.modal__close-button{
   position: absolute;
   background: url("../images/close\ icon.svg") no-repeat center / auto 40px;
   width: 40px;
@@ -54,9 +66,10 @@
   background-color: rgba(0, 0, 0, 0);
   border: none;
   color: white;
+  cursor: pointer;
 }
 
-.img-display-modal__paragraph{
+.modal__paragraph{
   font-size: 12px;
   line-height: 14.52px;
   margin-top: 10px;
@@ -96,7 +109,7 @@
   margin: 0 0 48px 0;
 }
 
-.modal__save-button, .modal__img-save-button {
+.modal__save-button {
   background-color: black;
   color: white;
   font-size: 18px;
@@ -106,13 +119,13 @@
   height: 50px;
   margin-bottom: 37px;
 }
-.modal__save-button:hover, .modal__img-save-button:hover {
+.modal__save-button:hover {
   opacity: 80%;
 }
 
 
 @media screen and (max-width: 620px) {
-  .modal__form-container {
+  .modal__container{
     position: relative;
     background-color: white;
     max-width: 282px;
@@ -120,7 +133,7 @@
     margin: auto;
     border-radius: 10px;
   }
-  .modal__close-button, .modal__img-close-button, .modal__img-display-close-button {
+  .modal__close-button{
     position: absolute;
     background: url("../images/close\ icon.svg") no-repeat center / auto 26px;
     width: 26px;
@@ -139,9 +152,18 @@
     padding-left: 0;
     padding-right: 0;
   }
-  .modal__save-button, .modal__img-save-button {
+  .modal__save-button{
     width: 238px;
     height: 46px;
     margin-bottom: 25px;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }

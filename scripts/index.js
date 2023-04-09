@@ -72,17 +72,17 @@ const editButton = document.querySelector(".profile__edit-button");
 const addImgButton = document.querySelector(".profile__add-button");
 
 //finding the modals display section
-const profileModal = document.querySelector(".profile-modal");
-const imgModal = document.querySelector(".img-modal");
-const imgDisplayModal = document.querySelector(".img-display-modal")
+const profileModal = document.querySelector(".profile__modal");
+const imgModal = document.querySelector(".img__modal");
+const imgDisplayModal = document.querySelector(".display__modal")
 //finding the forms
-const modalForm = document.querySelector(".modal__form-container");
-const imgModalForm = document.querySelector(".modal__img-form-container");
+const modalForm = document.querySelector(".modal__container");
+const imgModalForm = document.querySelector(".img__modal-container");
 
 //Finding X button for closing the modals
 const modalCloseButton = document.querySelector(".modal__close-button");
-const imgModalCloseButton = document.querySelector(".modal__img-close-button");
-const imgDisplayModalCloseButton = document.querySelector(".modal__img-display-close-button");
+const imgModalCloseButton = document.querySelector(".img__modal-close-button");
+const imgDisplayModalCloseButton = document.querySelector(".display__modal-close-button");
 
 //finding form components
 const nameInput = document.querySelector("#name");
@@ -108,24 +108,31 @@ function displayImgModal(e) {
 }
 
 
-//function that closes profile modal
-function closeModal(e) {
-  e.preventDefault();
-  profileModal.classList.remove("modal_opened");
-}
+// //function that closes profile modal
+// function closeModal(e) {
+//   e.preventDefault();
+//   profileModal.classList.remove("modal_opened");
+// }
 
-//function that closes img modal
-function closeImgModal(e) {
-  e.preventDefault();
-  imgModal.classList.remove("modal_opened");
-}
+// //function that closes img modal
+// function closeImgModal(e) {
+//   e.preventDefault();
+//   imgModal.classList.remove("modal_opened");
 
-//function that closes img display modal
-function closeImgDisplayModal(e) {
-  e.preventDefault();
-  imgDisplayModal.classList.remove("modal_opened");
-}
+// }
 
+// //function that closes img display modal
+// function closeImgDisplayModal(e) {
+//   e.preventDefault();
+//   imgDisplayModal.classList.remove("modal_opened");
+// }
+
+function closeModal(e, modalElement) {
+  if (e === "submit"){
+    e.preventDefault();
+  }
+  modalElement.classList.remove("modal_opened");
+}
 
 
 //function that saves profile modal inputs 
@@ -138,7 +145,7 @@ function handleProfileFormSubmit(e) {
   if (descriptionInput.value.length > minLength) {
     userOccupation.textContent = descriptionInput.value;
   }
-  closeModal(e);
+  closeModal(e, profileModal);
 }
 
 //function that save imgs modal inputs 
@@ -157,7 +164,7 @@ function handleImgFormSubmit(e) {
   })
 
   }
-  closeImgModal(e);
+  closeImgModal(e, imgModal);
   }
 
 //event listeners profile modal for buttons
@@ -167,7 +174,7 @@ modalForm.addEventListener("submit", handleProfileFormSubmit);
 
 //event listeners for img modal buttons
 addImgButton.addEventListener("click", displayImgModal);
-imgModalCloseButton.addEventListener("click", closeImgModal);
+// imgModalCloseButton.addEventListener("click", closeImgModal);
 imgModalForm.addEventListener("submit", handleImgFormSubmit);
 
 
@@ -206,7 +213,7 @@ galleryDisplay.addEventListener("click", function(e){
 // function that opens img display
   imgDisplayModal.classList.add("modal_opened");
   const modalImage = document.querySelector(".modal__image-display")
-  const modalText = document.querySelector(".img-display-modal__paragraph")
+  const modalText = document.querySelector(".modal__paragraph")
   modalImage.setAttribute("src", displayImage)
   modalText.textContent = displayText
   // cardImageElement.setAttribute("src", displayImage);
@@ -216,9 +223,16 @@ galleryDisplay.addEventListener("click", function(e){
   })
 
   //closing the display
-imgDisplayModal.addEventListener("click", closeImgDisplayModal)
+// imgDisplayModal.addEventListener("click", closeImgDisplayModal)
 
+// Close profile modal
+closeModal("click", profileModal);
 
+// Close image modal
+closeModal("click", imgModal);
+
+// Close image display modal
+closeModal("click", imgDisplayModal);
 
 
 

@@ -34,8 +34,8 @@
           </div>
           <button class="profile__add-button" type="button"></button>
         </section>
-        <section class="modal profile-modal">
-          <form class="modal__form-container">
+        <section class="modal profile__modal">
+          <form class="modal__container">
             <h2 class="modal__heading">Edit profile</h2>
             <fieldset class="modal__fieldset">
               <button type="button" class="modal__close-button"></button>
@@ -59,11 +59,11 @@
             </fieldset>
           </form>
         </section>
-        <section class="modal img-modal">
-          <form class="modal__img-form-container">
+        <section class="modal img__modal">
+          <form class="modal__container img__modal-container">
             <h2 class="modal__heading">New Place</h2>
             <fieldset class="modal__fieldset">
-              <button type="button" class="modal__img-close-button"></button>
+              <button type="button" class="modal__close-button img__modal-close-button"></button>
               <input
                 type="text"
                 name="title"
@@ -80,15 +80,15 @@
                 placeholder="Image URL"
                 required
               />
-              <button type="submit" class="modal__img-save-button">Save</button>
+              <button type="submit" class="modal__save-button img__modal-save-button">Save</button>
             </fieldset>
           </form>
         </section>
-        <section class="modal img-display-modal">
-          <div class="modal__img-container">
-          <button type="button" class="modal__img-display-close-button"></button>
+        <section class="modal display__modal">
+          <div class="modal__display-container">
+          <button type="button" class="modal__close-button display__modal-close-button"></button>
           <img src="" alt="" class="modal__image-display">
-          <p class="img-display-modal__paragraph"></p></div>
+          <p class="modal__paragraph"></p></div>
         </section>
         <section class="gallery page__section">
           <ul class="gallery__cards"></ul>
