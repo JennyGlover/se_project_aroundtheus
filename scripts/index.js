@@ -63,9 +63,7 @@ function getUserCardElement(data) {
   //adding the cloned card template to the gallery display
   galleryDisplay.prepend(cardElement);
 }
-initialCards.forEach((initialCard) => {
-  getCardElement(initialCard);
-})
+initialCards.forEach(getCardElement);
 
 //finding the edit button
 const editButton = document.querySelector(".profile__edit-button");
@@ -75,14 +73,12 @@ const addImgButton = document.querySelector(".profile__add-button");
 const profileModal = document.querySelector(".profile-modal");
 const imgModal = document.querySelector(".img-modal");
 const imgDisplayModal = document.querySelector(".display-modal")
-//finding the forms
-const modalForm = document.querySelector(".modal__container");
-const imgModalForm = document.querySelector(".img-modal__container");
+const displayModalImage = document.querySelector(".modal__image-display")
+const displayModalText = document.querySelector(".modal__paragraph")
 
-//Finding X button for closing the modals
-const modalCloseButton = document.querySelector(".modal__close-button");
-const imgModalCloseButton = document.querySelector(".img-modal__close-button");
-const imgDisplayModalCloseButton = document.querySelector(".display-modal__close-button");
+//finding the forms
+const profileModalForm = document.querySelector(".modal__container");
+const imgModalForm = document.querySelector(".img-modal__container");
 
 //finding form components
 const nameInput = document.querySelector("#name");
@@ -93,38 +89,59 @@ const userName = document.querySelector(".profile__username");
 const cardTitle = document.querySelector(".card__title")
 const userOccupation = document.querySelector(".profile__occupation");
 
+// finding all close buttons
+const closeButtons = document.querySelectorAll('.modal__close-button');
+
+closeButtons.forEach((button) => {
+  // find the closest popup 
+  const popup = button.closest('.modal');
+  // set the listener
+  button.addEventListener('click', () => closePopup(popup));
+});
+
+
+//funtion for adding modal open class 
+function openPopup(popup) {
+  popup.classList.add('modal_opened');
+}
+function closePopup(popup) {
+  popup.classList.remove('modal_opened');
+}
+
+
 
 //function that opens profile modal
 function displayModal(e) {
   e.preventDefault();
-  profileModal.classList.add("modal_opened");
+  openPopup(profileModal);
   nameInput.value = userName.textContent;
   descriptionInput.value = userOccupation.textContent;
 }
 //function that opens img modal
 function displayImgModal(e) {
   e.preventDefault();
-  imgModal.classList.add("modal_opened");
+  openPopup(imgModal);
 }
 
 
 //function that closes profile modal
 function closeModal(e) {
   e.preventDefault();
-  profileModal.classList.remove("modal_opened");
+  closePopup(profileModal);
 }
 
 //function that closes img modal
 function closeImgModal(e) {
   e.preventDefault();
-  imgModal.classList.remove("modal_opened");
+  closePopup(imgModal);
 
 }
 
 //function that closes img display modal
 function closeImgDisplayModal(e) {
   e.preventDefault();
-  imgDisplayModal.classList.remove("modal_opened");
+  closePopup(imgDisplayModal);
+
 }
 
 
@@ -149,13 +166,14 @@ function handleImgFormSubmit(e) {
 
   if (titleInput.value.length > minLength && imgUrlInput.value.length > minLength ) {
  
-  const newCards =[{
+  const newCard ={
     name: titleInput.value,
     link: imgUrlInput.value
-  }]
-  newCards.forEach((newCard) => {
-    getUserCardElement(newCard);
-  })
+  }
+ getUserCardElement(newCard);
+  
+titleInput.value = "";
+imgUrlInput.value = "";
 
   }
   closeImgModal(e);
@@ -163,27 +181,20 @@ function handleImgFormSubmit(e) {
 
 //event listeners profile modal for buttons
 editButton.addEventListener("click", displayModal);
-modalCloseButton.addEventListener("click", closeModal);
-modalForm.addEventListener("submit", handleProfileFormSubmit);
+profileModalForm.addEventListener("submit", handleProfileFormSubmit);
 
 //event listeners for img modal buttons
 addImgButton.addEventListener("click", displayImgModal);
-imgModalCloseButton.addEventListener("click", closeImgModal);
 imgModalForm.addEventListener("submit", handleImgFormSubmit);
 
 
 //event listener for current & future prepended card like buttons
 galleryDisplay.addEventListener("click", function(e){
   //check if the target is a heart icon
-  if(e.target && e.target.matches(".card__heart")) {  
-    const likeButton = e.target;
-    if(likeButton.getAttribute("src") === "images/heart.svg"){
-      likeButton.setAttribute("src", "images/filled-heart.png");
-    } else if (likeButton.getAttribute("src") === "images/filled-heart.png"){
-      likeButton.setAttribute("src", "images/heart.svg");
-    }
+  alert(e.target.classList)
+  if (e.target && e.target.matches(".card__heart")) {
+    e.target.classList.toggle("card__heart-active");
   }
-
 });
 
 //event listener for current & future trash buttons
@@ -191,7 +202,7 @@ galleryDisplay.addEventListener("click", function(e){
 //check if the target is a trash icon
  if(e.target && e.target.matches(".card__trash")){
   const trashButton = e.target;
-  trashButton.parentNode.parentNode.remove();
+  trashButton.closest(".card").remove();
  }
 
 })
@@ -206,20 +217,14 @@ galleryDisplay.addEventListener("click", function(e){
 
 // function that opens img display
   imgDisplayModal.classList.add("modal_opened");
-  const modalImage = document.querySelector(".modal__image-display")
-  const modalText = document.querySelector(".modal__paragraph")
-  modalImage.setAttribute("src", displayImage)
-  modalText.textContent = displayText
+  displayModalImage.setAttribute("src", displayImage)
+  displayModalText.textContent = displayText
   // cardImageElement.setAttribute("src", displayImage);
 
    }
   
   })
 
-  //closing the display
-imgDisplayModal.addEventListener("click", closeImgDisplayModal)
-
-
-
+  
 
 

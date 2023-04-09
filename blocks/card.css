@@ -35,12 +35,18 @@
 }
 .card__trash-button {
   border: none;
-  background-color: transparent;
+  background-color: black;
   cursor: pointer;
 }
 .card__heart {
   margin-right: 20px;
-  width: 21px;
+  width: 24px;
+  stroke:"black";
+  fill: white;
+}
+.card__heart-active{
+  fill:"black";
+
 }
 .card__trash {
   width: 21px;
