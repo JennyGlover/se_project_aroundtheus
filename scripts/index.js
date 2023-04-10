@@ -59,13 +59,14 @@ function createCard(item) {
 
     //Opening display
     if (e.target && e.target.matches(".card__image")) {
-      const cardImageElement = e.target;
-      const displayImage = cardImageElement.getAttribute("src");
-      const displayText = cardImageElement.getAttribute("alt");
+      const displayImage = item.link;
+      const displayText = item.name;
+      const displayAlt = item.name;
 
       openPopup(imgDisplayModal);
       displayModalImage.setAttribute("src", displayImage);
       displayModalText.textContent = displayText;
+      displayModalImage.setAttribute("alt", displayAlt);
     }
   });
 
@@ -134,7 +135,7 @@ function closePopup(popup) {
 }
 
 //function that opens profile modal
-function displayModal(e) {
+function displayProfileModal(e) {
   e.preventDefault();
   openPopup(profileModal);
   nameInput.value = userName.textContent;
@@ -199,7 +200,7 @@ function handleImgFormSubmit(e) {
 }
 
 //event listeners profile modal for buttons
-editButton.addEventListener("click", displayModal);
+editButton.addEventListener("click", displayProfileModal);
 profileModalForm.addEventListener("submit", handleProfileFormSubmit);
 
 //event listeners for img modal buttons
