@@ -45,30 +45,28 @@ function createCard(item) {
   //setting the card title
   cardTitle.textContent = item.name;
 
-  cardElement.addEventListener("click", function(e){
+  cardElement.addEventListener("click", function (e) {
     //liking cards
     if (e.target && e.target.matches(".card__heart")) {
       e.target.classList.toggle("card__heart-active");
     }
 
-  //removing cards
-    if(e.target && e.target.matches(".card__trash")){
+    //removing cards
+    if (e.target && e.target.matches(".card__trash")) {
       const trashButton = e.target;
       trashButton.closest(".card").remove();
-     }
-    
-  //Opening display
-   if(e.target && e.target.matches(".card__image")){
-    const cardImageElement = e.target;
-    const displayImage = cardImageElement.getAttribute("src")
-    const displayText = cardImageElement.getAttribute("alt")
+    }
 
-  openPopup( imgDisplayModal); 
-  displayModalImage.setAttribute("src", displayImage)
-  displayModalText.textContent = displayText
+    //Opening display
+    if (e.target && e.target.matches(".card__image")) {
+      const cardImageElement = e.target;
+      const displayImage = cardImageElement.getAttribute("src");
+      const displayText = cardImageElement.getAttribute("alt");
 
-   }
-  
+      openPopup(imgDisplayModal);
+      displayModalImage.setAttribute("src", displayImage);
+      displayModalText.textContent = displayText;
+    }
   });
 
   return cardElement;
@@ -86,10 +84,9 @@ function getCardElement(data) {
 function getUserCardElement(data) {
   //creating the card template
   const cardElement = createCard(data);
- 
+
   //adding the cloned card template to the gallery display
   galleryDisplay.prepend(cardElement);
-
 }
 
 initialCards.forEach(getCardElement);
@@ -101,9 +98,9 @@ const addImgButton = document.querySelector(".profile__add-button");
 //finding the modals display section
 const profileModal = document.querySelector(".profile-modal");
 const imgModal = document.querySelector(".img-modal");
-const imgDisplayModal = document.querySelector(".display-modal")
-const displayModalImage = document.querySelector(".modal__image-display")
-const displayModalText = document.querySelector(".modal__paragraph")
+const imgDisplayModal = document.querySelector(".display-modal");
+const displayModalImage = document.querySelector(".modal__image-display");
+const displayModalText = document.querySelector(".modal__paragraph");
 
 //finding the forms
 const profileModalForm = document.querySelector(".modal__container");
@@ -115,29 +112,26 @@ const titleInput = document.querySelector("#title");
 const imgUrlInput = document.querySelector("#image-url");
 const descriptionInput = document.querySelector("#about-me");
 const userName = document.querySelector(".profile__username");
-const cardTitle = document.querySelector(".card__title")
+const cardTitle = document.querySelector(".card__title");
 const userOccupation = document.querySelector(".profile__occupation");
 
 // finding all close buttons
-const closeButtons = document.querySelectorAll('.modal__close-button');
+const closeButtons = document.querySelectorAll(".modal__close-button");
 
 closeButtons.forEach((button) => {
-  // find the closest popup 
-  const popup = button.closest('.modal');
+  // find the closest popup
+  const popup = button.closest(".modal");
   // set the listener
-  button.addEventListener('click', () => closePopup(popup));
+  button.addEventListener("click", () => closePopup(popup));
 });
 
-
-//funtion for adding modal open class 
+//funtion for adding modal open class
 function openPopup(popup) {
-  popup.classList.add('modal_opened');
+  popup.classList.add("modal_opened");
 }
 function closePopup(popup) {
-  popup.classList.remove('modal_opened');
+  popup.classList.remove("modal_opened");
 }
-
-
 
 //function that opens profile modal
 function displayModal(e) {
@@ -152,7 +146,6 @@ function displayImgModal(e) {
   openPopup(imgModal);
 }
 
-
 //function that closes profile modal
 function closeModal(e) {
   e.preventDefault();
@@ -163,19 +156,15 @@ function closeModal(e) {
 function closeImgModal(e) {
   e.preventDefault();
   closePopup(imgModal);
-
 }
 
 //function that closes img display modal
 function closeImgDisplayModal(e) {
   e.preventDefault();
   closePopup(imgDisplayModal);
-
 }
 
-
-
-//function that saves profile modal inputs 
+//function that saves profile modal inputs
 function handleProfileFormSubmit(e) {
   e.preventDefault();
   const minLength = 0;
@@ -188,25 +177,26 @@ function handleProfileFormSubmit(e) {
   closeModal(e);
 }
 
-//function that save imgs modal inputs 
+//function that save imgs modal inputs
 function handleImgFormSubmit(e) {
   e.preventDefault();
   const minLength = 0;
 
-  if (titleInput.value.length > minLength && imgUrlInput.value.length > minLength ) {
- 
-  const newCard ={
-    name: titleInput.value,
-    link: imgUrlInput.value
-  }
- getUserCardElement(newCard);
-  
-titleInput.value = "";
-imgUrlInput.value = "";
+  if (
+    titleInput.value.length > minLength &&
+    imgUrlInput.value.length > minLength
+  ) {
+    const newCard = {
+      name: titleInput.value,
+      link: imgUrlInput.value,
+    };
+    getUserCardElement(newCard);
 
+    titleInput.value = "";
+    imgUrlInput.value = "";
   }
   closeImgModal(e);
-  }
+}
 
 //event listeners profile modal for buttons
 editButton.addEventListener("click", displayModal);
@@ -215,9 +205,3 @@ profileModalForm.addEventListener("submit", handleProfileFormSubmit);
 //event listeners for img modal buttons
 addImgButton.addEventListener("click", displayImgModal);
 imgModalForm.addEventListener("submit", handleImgFormSubmit);
-
-
-
-  
-
-

@@ -42,12 +42,14 @@
   margin-right: 20px;
   width: 21px;
   display: block;
- height: 100%;
- cursor: pointer;
- background-image: url(/images/heart.png) no-repeat contain;
+  height: 100%;
+  cursor: pointer;
+  background-image: url('/images/heart.png');
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 .card__heart-active{
-  background-image: url(/images/heartBlack.png);
+  background-image: url('/images/heartBlack.png');
 }
 .card__trash {
   width: 21px;
