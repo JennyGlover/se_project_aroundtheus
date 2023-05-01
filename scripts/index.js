@@ -108,10 +108,10 @@ const profileModalForm = document.querySelector(".modal__container");
 const imgModalForm = document.querySelector(".img-modal__container");
 
 //finding form components
-const nameInput = document.querySelector("#name");
-const titleInput = document.querySelector("#title");
+const nameInput = document.querySelector("#name-input");
+const titleInput = document.querySelector("#title-input");
 const imgUrlInput = document.querySelector("#image-url");
-const descriptionInput = document.querySelector("#about-me");
+const descriptionInput = document.querySelector("#about-input");
 const userName = document.querySelector(".profile__username");
 const cardTitle = document.querySelector(".card__title");
 const userOccupation = document.querySelector(".profile__occupation");
@@ -206,3 +206,44 @@ profileModalForm.addEventListener("submit", handleProfileFormSubmit);
 //event listeners for img modal buttons
 addImgButton.addEventListener("click", displayImgModal);
 imgModalForm.addEventListener("submit", handleImgFormSubmit);
+
+//func to show input error
+const showInputError = (formElement, inputElement, errorMessage) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add("form__input_type_error");
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add("form__input-error_actice");
+};
+
+//func to hide input error
+const hideInputError = (formElement, inputElement) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove("form__input_type_error");
+  errorElement.classList.remove("form__input-error_actice");
+  errorElement.textContent = "";
+};
+
+//func to check hide check validity and hide or show error message
+const checkInputValidity = (formElement, inputElement) => {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+};
+
+//func to check if form has an invalid input
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.valididty.valid;
+  });
+};
+
+//funct to toggle submit button
+const toggleButton = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add("button_inactice");
+  } else {
+    buttonElement.classList.remove("button_inactice");
+  }
+};
