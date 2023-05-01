@@ -110,11 +110,12 @@ const imgModalForm = document.querySelector(".img-modal__container");
 //finding form components
 const nameInput = document.querySelector("#name-input");
 const titleInput = document.querySelector("#title-input");
-const imgUrlInput = document.querySelector("#image-url");
+const imgUrlInput = document.querySelector("#image-input");
 const descriptionInput = document.querySelector("#about-input");
 const userName = document.querySelector(".profile__username");
 const cardTitle = document.querySelector(".card__title");
 const userOccupation = document.querySelector(".profile__occupation");
+const modalForms = document.querySelectorAll(".modal");
 
 // finding all close buttons
 const closeButtons = document.querySelectorAll(".modal__close-button");
@@ -124,6 +125,32 @@ closeButtons.forEach((button) => {
   const popup = button.closest(".modal");
   // set the listener
   button.addEventListener("click", () => closePopup(popup));
+});
+
+//closing forms with Esc
+document.addEventListener("keydown", (evt) => {
+  console.log(evt);
+  const { key } = evt;
+  console.log(modalForms);
+  if (key === "Escape") {
+    modalForms.forEach((form) => {
+      if (form.classList.contains("modal_opened")) {
+        form.classList.remove("modal_opened");
+      }
+    });
+  }
+});
+
+//closing forms with overlay
+modalForms.forEach((form) => {
+  form.addEventListener("click", (evt) => {
+    console.log(evt.target);
+    if (evt.target === form) {
+      if (form.classList.contains("modal_opened")) {
+        form.classList.remove("modal_opened");
+      }
+    }
+  });
 });
 
 //funtion for adding modal open class
@@ -210,16 +237,16 @@ imgModalForm.addEventListener("submit", handleImgFormSubmit);
 //func to show input error
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add("form__input_type_error");
+  inputElement.classList.add("modal__input_type_error");
   errorElement.textContent = errorMessage;
-  errorElement.classList.add("form__input-error_actice");
+  errorElement.classList.add("modal__input-error_active");
 };
 
 //func to hide input error
 const hideInputError = (formElement, inputElement) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove("form__input_type_error");
-  errorElement.classList.remove("form__input-error_actice");
+  inputElement.classList.remove("modal__input_type_error");
+  errorElement.classList.remove("modal__input-error_active");
   errorElement.textContent = "";
 };
 
@@ -235,15 +262,47 @@ const checkInputValidity = (formElement, inputElement) => {
 //func to check if form has an invalid input
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
-    return !inputElement.valididty.valid;
+    return !inputElement.validity.valid;
   });
 };
 
-//funct to toggle submit button
-const toggleButton = (inputList, buttonElement) => {
+//func to toggle submit button
+const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add("button_inactice");
+    buttonElement.classList.add("button_inactive");
   } else {
-    buttonElement.classList.remove("button_inactice");
+    buttonElement.classList.remove("button_inactive");
   }
 };
+
+//func that sets event listeners
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll(".modal__input"));
+  const buttonElement = formElement.querySelector(".modal__save-button");
+  toggleButtonState(inputList, buttonElement);
+
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", function () {
+      checkInputValidity(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+};
+
+//func that enables validation
+const enableValidation = () => {
+  const formList = Array.from(document.querySelectorAll(".modal__container"));
+  formList.forEach((formElement) => {
+    formElement.addEventListener("submit", function (evt) {
+      evt.preventDefault();
+    });
+    const fieldsetList = Array.from(
+      formElement.querySelectorAll(".modal__fieldset")
+    );
+    fieldsetList.forEach((fieldset) => {
+      setEventListeners(fieldset);
+    });
+  });
+};
+
+enableValidation();

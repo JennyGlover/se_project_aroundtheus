@@ -39,23 +39,32 @@
             <h2 class="modal__heading">Edit profile</h2>
             <fieldset class="modal__fieldset">
               <button type="button" class="modal__close-button"></button>
+              <span class="modal__field">
               <input
                 type="text"
                 name="name"
-                id="name"
+                id="name-input"
                 class="modal__input"
                 placeholder="Name"
+                minlength="2"
+                maxlength="40"
                 required
               />
-              <span class="modal__input-error name-input-error">hi</span>
+              <span class="modal__input-error name-input-error"></span>
+              </span>
+            <span class="modal__field">
               <input
                 type="text"
                 name="about me"
-                id="about-me"
+                id="about-input"
                 class="modal__input"
                 placeholder="Description"
+                minlength="2"
+                maxlength="200"
                 required
               />
+              <span class="modal__input-error about-input-error"></span>
+            </span>
 
               <button type="submit" class="modal__save-button">Save</button>
             </fieldset>
@@ -66,22 +75,31 @@
             <h2 class="modal__heading">New Place</h2>
             <fieldset class="modal__fieldset">
               <button type="button" class="modal__close-button img-modal__close-button"></button>
+              <span class="modal__field">
               <input
                 type="text"
                 name="title"
-                id="title"
+                id="title-input"
                 class="modal__input"
                 placeholder="Title"
+                minlength="1"
+                maxlength="30"
                 required
               />
+              <span class="modal__input-error title-input-error"></span>
+
+              </span>
+              <span class="modal__field">
               <input
-                type="text"
+                type="url"
                 name="image url"
-                id="image-url"
+                id="image-input"
                 class="modal__input"
                 placeholder="Image URL"
                 required
               />
+              <span class="modal__input-error image-input-error"></span>
+              </span>
               <button type="submit" class="modal__save-button">Save</button>
             </fieldset>
           </form>
