@@ -129,9 +129,7 @@ closeButtons.forEach((button) => {
 
 //closing forms with Esc
 document.addEventListener("keydown", (evt) => {
-  console.log(evt);
   const { key } = evt;
-  console.log(modalForms);
   if (key === "Escape") {
     modalForms.forEach((form) => {
       if (form.classList.contains("modal_opened")) {
@@ -144,7 +142,6 @@ document.addEventListener("keydown", (evt) => {
 //closing forms with overlay
 modalForms.forEach((form) => {
   form.addEventListener("click", (evt) => {
-    console.log(evt.target);
     if (evt.target === form) {
       if (form.classList.contains("modal_opened")) {
         form.classList.remove("modal_opened");
