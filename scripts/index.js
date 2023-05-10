@@ -47,8 +47,8 @@ function createCard(item) {
 
   cardElement.addEventListener("click", function (e) {
     //liking cards
-    if (e.target && e.target.matches(".card__heart")) {
-      e.target.classList.toggle("card__heart-active");
+    if (e.target && e.target.matches(".card__like-button")) {
+      e.target.classList.toggle("card__like-button_active");
     }
 
     //removing cards
@@ -266,9 +266,9 @@ const hasInvalidInput = (inputList) => {
 //func to toggle submit button
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add("button_inactive");
+    buttonElement.classList.add("modal__save-button_inactive");
   } else {
-    buttonElement.classList.remove("button_inactive");
+    buttonElement.classList.remove("modal__save-button_inactive");
   }
 };
 
