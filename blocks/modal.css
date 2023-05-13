@@ -11,8 +11,6 @@
   z-index: 99999;
   transition: opacity 1s, visibility 0s 1s;
   visibility: hidden;
-  max-width: ;
-
 }
 .modal__display-container{
   margin: 0 auto;
