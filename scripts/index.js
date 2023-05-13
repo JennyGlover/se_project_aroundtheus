@@ -63,7 +63,7 @@ function createCard(item) {
       const displayText = item.name;
       const displayAlt = item.name;
 
-      openPopup(imgDisplayModal);
+      openModal(imgDisplayModal);
       displayModalImage.setAttribute("src", displayImage);
       displayModalText.textContent = displayText;
       displayModalImage.setAttribute("alt", displayAlt);
@@ -74,7 +74,7 @@ function createCard(item) {
 }
 
 //function that displays cards
-function getCardElement(data) {
+function renderCard(data) {
   //creating the card template
   const cardElement = createCard(data);
 
@@ -82,7 +82,7 @@ function getCardElement(data) {
   galleryDisplay.append(cardElement);
 }
 //function that prepends card
-function getUserCardElement(data) {
+function renderNewCard(data) {
   //creating the card template
   const cardElement = createCard(data);
 
@@ -90,7 +90,7 @@ function getUserCardElement(data) {
   galleryDisplay.prepend(cardElement);
 }
 
-initialCards.forEach(getCardElement);
+initialCards.forEach(renderCard);
 
 //finding the edit button
 const editButton = document.querySelector(".profile__edit-button");
@@ -121,27 +121,25 @@ const modalForms = document.querySelectorAll(".modal");
 const closeButtons = document.querySelectorAll(".modal__close-button");
 
 closeButtons.forEach((button) => {
-  // find the closest popup
-  const popup = button.closest(".modal");
+  // find the closest modal
+  const modal = button.closest(".modal");
   // set the listener
-  button.addEventListener("click", () => closePopup(popup));
+  button.addEventListener("click", () => closeModal(modal));
 });
 
 //closing forms with Esc
-document.addEventListener("keydown", (evt) => {
-  const { key } = evt;
-  if (key === "Escape") {
-    modalForms.forEach((form) => {
-      if (form.classList.contains("modal_opened")) {
-        form.classList.remove("modal_opened");
-      }
-    });
+function closeModalByEscape(evt) {
+  if (evt.key === "Escape") {
+    // search for an opened modal
+    const openedModal = document.querySelector(".modal_opened");
+    // close it
+    closeModal(openedModal);
   }
-});
+}
 
 //closing forms with overlay
 modalForms.forEach((form) => {
-  form.addEventListener("click", (evt) => {
+  form.addEventListener("mousedown", (evt) => {
     if (evt.target === form) {
       if (form.classList.contains("modal_opened")) {
         form.classList.remove("modal_opened");
@@ -151,76 +149,64 @@ modalForms.forEach((form) => {
 });
 
 //funtion for adding modal open class
-function openPopup(popup) {
-  popup.classList.add("modal_opened");
+function openModal(modal) {
+  modal.classList.add("modal_opened");
+  document.addEventListener("keydown", closeModalByEscape);
 }
-function closePopup(popup) {
-  popup.classList.remove("modal_opened");
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", closeModalByEscape);
 }
 
 //function that opens profile modal
 function displayProfileModal(e) {
-  e.preventDefault();
-  openPopup(profileModal);
+  openModal(profileModal);
   nameInput.value = userName.textContent;
   descriptionInput.value = userOccupation.textContent;
 }
 //function that opens img modal
 function displayImgModal(e) {
-  e.preventDefault();
-  openPopup(imgModal);
+  openModal(imgModal);
 }
 
 //function that closes profile modal
-function closeModal(e) {
-  e.preventDefault();
-  closePopup(profileModal);
+function closeProfileModal(e) {
+  closeModal(profileModal);
 }
 
 //function that closes img modal
 function closeImgModal(e) {
-  e.preventDefault();
-  closePopup(imgModal);
+  closeModal(imgModal);
 }
 
 //function that closes img display modal
 function closeImgDisplayModal(e) {
-  e.preventDefault();
-  closePopup(imgDisplayModal);
+  closeModal(imgDisplayModal);
 }
 
 //function that saves profile modal inputs
 function handleProfileFormSubmit(e) {
   e.preventDefault();
-  const minLength = 0;
-  if (nameInput.value.length > minLength) {
-    userName.textContent = nameInput.value;
-  }
-  if (descriptionInput.value.length > minLength) {
-    userOccupation.textContent = descriptionInput.value;
-  }
-  closeModal(e);
+  userName.textContent = nameInput.value;
+  userOccupation.textContent = descriptionInput.value;
+  closeProfileModal(e);
 }
 
 //function that save imgs modal inputs
 function handleImgFormSubmit(e) {
   e.preventDefault();
-  const minLength = 0;
 
-  if (
-    titleInput.value.length > minLength &&
-    imgUrlInput.value.length > minLength
-  ) {
-    const newCard = {
-      name: titleInput.value,
-      link: imgUrlInput.value,
-    };
-    getUserCardElement(newCard);
+  const newCard = {
+    name: titleInput.value,
+    link: imgUrlInput.value,
+  };
+  renderNewCard(newCard);
 
-    titleInput.value = "";
-    imgUrlInput.value = "";
-  }
+  titleInput.value = "";
+  imgUrlInput.value = "";
+
   closeImgModal(e);
+  toggleButtonState;
 }
 
 //event listeners profile modal for buttons
@@ -230,76 +216,3 @@ profileModalForm.addEventListener("submit", handleProfileFormSubmit);
 //event listeners for img modal buttons
 addImgButton.addEventListener("click", displayImgModal);
 imgModalForm.addEventListener("submit", handleImgFormSubmit);
-
-//func to show input error
-const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add("modal__input_type_error");
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add("modal__input-error_active");
-};
-
-//func to hide input error
-const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove("modal__input_type_error");
-  errorElement.classList.remove("modal__input-error_active");
-  errorElement.textContent = "";
-};
-
-//func to check hide check validity and hide or show error message
-const checkInputValidity = (formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-};
-
-//func to check if form has an invalid input
-const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-};
-
-//func to toggle submit button
-const toggleButtonState = (inputList, buttonElement) => {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add("modal__save-button_inactive");
-  } else {
-    buttonElement.classList.remove("modal__save-button_inactive");
-  }
-};
-
-//func that sets event listeners
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll(".modal__input"));
-  const buttonElement = formElement.querySelector(".modal__save-button");
-  toggleButtonState(inputList, buttonElement);
-
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", function () {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
-    });
-  });
-};
-
-//func that enables validation
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll(".modal__container"));
-  formList.forEach((formElement) => {
-    formElement.addEventListener("submit", function (evt) {
-      evt.preventDefault();
-    });
-    const fieldsetList = Array.from(
-      formElement.querySelectorAll(".modal__fieldset")
-    );
-    fieldsetList.forEach((fieldset) => {
-      setEventListeners(fieldset);
-    });
-  });
-};
-
-enableValidation();
