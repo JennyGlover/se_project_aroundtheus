@@ -200,7 +200,7 @@ function handleImgFormSubmit(e) {
   titleInput.value = "";
   imgUrlInput.value = "";
 
-  closeImgModal(e);
+  closeImgDisplayModal(e);
   toggleButtonState(
     Array.from(imgModalForm.querySelectorAll(validationConfig.inputSelector)),
     imgModalForm.querySelector(validationConfig.submitButtonSelector),

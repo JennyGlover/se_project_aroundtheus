@@ -88,7 +88,7 @@ const enableValidation = (validationConfig) => {
   });
 };
 
-enableValidation({
+const validationConfig = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__input-error_active",
   inactiveButtonClass: "modal__save-button_inactive",
@@ -96,4 +96,6 @@ enableValidation({
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__save-button",
   fieldsetSelector: ".modal__fieldset",
-});
+};
+
+enableValidation(validationConfig);
