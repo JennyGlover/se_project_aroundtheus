@@ -174,6 +174,10 @@ function closeProfileModal(e) {
   closeModal(profileModal);
 }
 
+function closeImgModal(e) {
+  closeModal(imgModal);
+}
+
 //function that closes img display modal
 function closeImgDisplayModal(e) {
   closeModal(imgDisplayModal);
@@ -200,7 +204,7 @@ function handleImgFormSubmit(e) {
   titleInput.value = "";
   imgUrlInput.value = "";
 
-  closeImgDisplayModal(e);
+  closeImgModal(e);
   toggleButtonState(
     Array.from(imgModalForm.querySelectorAll(validationConfig.inputSelector)),
     imgModalForm.querySelector(validationConfig.submitButtonSelector),

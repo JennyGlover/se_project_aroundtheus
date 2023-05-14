@@ -63,7 +63,7 @@
   cursor: pointer;
 }
 
-.card__heart:hover {
+.card__heart-button:hover {
   opacity: 0.5;
   cursor: pointer;
 }
