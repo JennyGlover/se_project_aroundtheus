@@ -29,7 +29,7 @@
   opacity: 1;
   transition: visibility 0s, opacity 0.5s linear;
 }
-.modal__container{
+.modal__content{
   margin: 0 auto;
   position: absolute;
   left: 0;
@@ -46,7 +46,7 @@
   width: 40px;
   height: 40px;
   right: -45px;
-  top: -45px;
+  top: -45px; 
   background-color: rgba(0, 0, 0, 0);
   border: none;
   color: white;
@@ -103,6 +103,7 @@
   background-color: rgb(255, 255, 255);
   color: rgba(0, 0, 0, 0.2);
   border: 2px solid rgba(0, 0, 0, 0.2);
+  cursor: default;
 }
 .modal__save-button_inactive:hover{
   opacity: 1;

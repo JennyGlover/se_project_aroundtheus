@@ -47,8 +47,8 @@ function createCard(item) {
 
   cardElement.addEventListener("click", function (e) {
     //liking cards
-    if (e.target && e.target.matches(".card__like-button")) {
-      e.target.classList.toggle("card__like-button_active");
+    if (e.target && e.target.matches(".card__like-icon")) {
+      e.target.classList.toggle("card__like-icon_active");
     }
 
     //removing cards
@@ -142,7 +142,7 @@ modalForms.forEach((form) => {
   form.addEventListener("mousedown", (evt) => {
     if (evt.target === form) {
       if (form.classList.contains("modal_opened")) {
-        form.classList.remove("modal_opened");
+        closeModal(form);
       }
     }
   });
@@ -174,11 +174,6 @@ function closeProfileModal(e) {
   closeModal(profileModal);
 }
 
-//function that closes img modal
-function closeImgModal(e) {
-  closeModal(imgModal);
-}
-
 //function that closes img display modal
 function closeImgDisplayModal(e) {
   closeModal(imgDisplayModal);
@@ -206,7 +201,11 @@ function handleImgFormSubmit(e) {
   imgUrlInput.value = "";
 
   closeImgModal(e);
-  toggleButtonState;
+  toggleButtonState(
+    Array.from(imgModalForm.querySelectorAll(".modal__input")),
+    imgModalForm.querySelector(".modal__save-button"),
+    { inactiveButtonClass: "modal__save-button_inactive" }
+  );
 }
 
 //event listeners profile modal for buttons
