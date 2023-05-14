@@ -202,9 +202,9 @@ function handleImgFormSubmit(e) {
 
   closeImgModal(e);
   toggleButtonState(
-    Array.from(imgModalForm.querySelectorAll(".modal__input")),
-    imgModalForm.querySelector(".modal__save-button"),
-    { inactiveButtonClass: "modal__save-button_inactive" }
+    Array.from(imgModalForm.querySelectorAll(validationConfig.inputSelector)),
+    imgModalForm.querySelector(validationConfig.submitButtonSelector),
+    validationConfig
   );
 }
 
