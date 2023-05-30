@@ -1,3 +1,5 @@
+import Card from "../components/Card.js";
+
 //Image cards
 const initialCards = [
   {
@@ -26,13 +28,21 @@ const initialCards = [
   },
 ];
 
+const cardData = {
+  name: "Yosemite Valley",
+  link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
+};
+
+const card = new Card(cardData, "#profile__card-template");
+
 //finding the card template and gallery section
 const cardTemplate = document.querySelector("#profile__card-template").content;
 const galleryDisplay = document.querySelector(".gallery__cards");
 
 //function that creates cards
 function createCard(item) {
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const card = new Card(cardData, "#profile__card-template");
+  const cardElement = card.getview();
 
   //finding the card title and image
   const cardTitle = cardElement.querySelector(".card__title");
@@ -46,17 +56,6 @@ function createCard(item) {
   cardTitle.textContent = item.name;
 
   cardElement.addEventListener("click", function (e) {
-    //liking cards
-    if (e.target && e.target.matches(".card__like-icon")) {
-      e.target.classList.toggle("card__like-icon_active");
-    }
-
-    //removing cards
-    if (e.target && e.target.matches(".card__trash")) {
-      const trashButton = e.target;
-      trashButton.closest(".card").remove();
-    }
-
     //Opening display
     if (e.target && e.target.matches(".card__image")) {
       const displayImage = item.link;
