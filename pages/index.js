@@ -113,3 +113,7 @@ profileModalForm.addEventListener("submit", handleProfileFormSubmit);
 //event listeners for img modal buttons
 addImgButton.addEventListener("click", displayImgModal);
 imgModalForm.addEventListener("submit", handleImgFormSubmit);
+
+const formValidator = new FormValidator(settings, formElement);
+
+formValidator.enableValidation();
