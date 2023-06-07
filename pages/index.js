@@ -1,4 +1,13 @@
 import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+
+import {
+  closeModal,
+  displayProfileModal,
+  displayImgModal,
+  handleProfileFormSubmit,
+  handleImgFormSubmit,
+} from "../utils/utils.js";
 
 //Image cards
 const initialCards = [
@@ -33,10 +42,7 @@ const cardData = {
   link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
 };
 
-const card = new Card(cardData, "#profile__card-template");
-
 //finding the card template and gallery section
-const cardTemplate = document.querySelector("#profile__card-template").content;
 const galleryDisplay = document.querySelector(".gallery__cards");
 
 //function that creates cards
@@ -55,38 +61,15 @@ function createCard(item) {
   //setting the card title
   cardTitle.textContent = item.name;
 
-  cardElement.addEventListener("click", function (e) {
-    //Opening display
-    if (e.target && e.target.matches(".card__image")) {
-      const displayImage = item.link;
-      const displayText = item.name;
-      const displayAlt = item.name;
-
-      openModal(imgDisplayModal);
-      displayModalImage.setAttribute("src", displayImage);
-      displayModalText.textContent = displayText;
-      displayModalImage.setAttribute("alt", displayAlt);
-    }
-  });
-
   return cardElement;
 }
 
-//function that displays cards
-function renderCard(data) {
+export function renderCard(data) {
   //creating the card template
   const cardElement = createCard(data);
 
   //adding the cloned card template to the gallery display
   galleryDisplay.append(cardElement);
-}
-//function that prepends card
-function renderNewCard(data) {
-  //creating the card template
-  const cardElement = createCard(data);
-
-  //adding the cloned card template to the gallery display
-  galleryDisplay.prepend(cardElement);
 }
 
 initialCards.forEach(renderCard);
@@ -95,25 +78,11 @@ initialCards.forEach(renderCard);
 const editButton = document.querySelector(".profile__edit-button");
 const addImgButton = document.querySelector(".profile__add-button");
 
-//finding the modals display section
-const profileModal = document.querySelector(".profile-modal");
-const imgModal = document.querySelector(".img-modal");
-const imgDisplayModal = document.querySelector(".display-modal");
-const displayModalImage = document.querySelector(".modal__image-display");
-const displayModalText = document.querySelector(".modal__paragraph");
-
 //finding the forms
 const profileModalForm = document.querySelector(".modal__container");
 const imgModalForm = document.querySelector(".img-modal__container");
 
 //finding form components
-const nameInput = document.querySelector("#name-input");
-const titleInput = document.querySelector("#title-input");
-const imgUrlInput = document.querySelector("#image-input");
-const descriptionInput = document.querySelector("#about-input");
-const userName = document.querySelector(".profile__username");
-const cardTitle = document.querySelector(".card__title");
-const userOccupation = document.querySelector(".profile__occupation");
 const modalForms = document.querySelectorAll(".modal");
 
 // finding all close buttons
@@ -126,16 +95,6 @@ closeButtons.forEach((button) => {
   button.addEventListener("click", () => closeModal(modal));
 });
 
-//closing forms with Esc
-function closeModalByEscape(evt) {
-  if (evt.key === "Escape") {
-    // search for an opened modal
-    const openedModal = document.querySelector(".modal_opened");
-    // close it
-    closeModal(openedModal);
-  }
-}
-
 //closing forms with overlay
 modalForms.forEach((form) => {
   form.addEventListener("mousedown", (evt) => {
@@ -146,70 +105,6 @@ modalForms.forEach((form) => {
     }
   });
 });
-
-//funtion for adding modal open class
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keydown", closeModalByEscape);
-}
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-  document.removeEventListener("keydown", closeModalByEscape);
-}
-
-//function that opens profile modal
-function displayProfileModal(e) {
-  openModal(profileModal);
-  nameInput.value = userName.textContent;
-  descriptionInput.value = userOccupation.textContent;
-}
-//function that opens img modal
-function displayImgModal(e) {
-  openModal(imgModal);
-}
-
-//function that closes profile modal
-function closeProfileModal(e) {
-  closeModal(profileModal);
-}
-
-function closeImgModal(e) {
-  closeModal(imgModal);
-}
-
-//function that closes img display modal
-function closeImgDisplayModal(e) {
-  closeModal(imgDisplayModal);
-}
-
-//function that saves profile modal inputs
-function handleProfileFormSubmit(e) {
-  e.preventDefault();
-  userName.textContent = nameInput.value;
-  userOccupation.textContent = descriptionInput.value;
-  closeProfileModal(e);
-}
-
-//function that save imgs modal inputs
-function handleImgFormSubmit(e) {
-  e.preventDefault();
-
-  const newCard = {
-    name: titleInput.value,
-    link: imgUrlInput.value,
-  };
-  renderNewCard(newCard);
-
-  titleInput.value = "";
-  imgUrlInput.value = "";
-
-  closeImgModal(e);
-  toggleButtonState(
-    Array.from(imgModalForm.querySelectorAll(validationConfig.inputSelector)),
-    imgModalForm.querySelector(validationConfig.submitButtonSelector),
-    validationConfig
-  );
-}
 
 //event listeners profile modal for buttons
 editButton.addEventListener("click", displayProfileModal);
