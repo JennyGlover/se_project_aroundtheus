@@ -64,12 +64,27 @@ function createCard(item) {
   return cardElement;
 }
 
-export function renderCard(data) {
+//function that displays cards
+
+function renderCard(data) {
+  //creating the card template
+
+  const cardElement = createCard(data);
+
+  //adding the cloned card template to the gallery display
+
+  galleryDisplay.append(cardElement);
+}
+
+//function that prepends card
+
+export function renderNewCard(data) {
   //creating the card template
   const cardElement = createCard(data);
 
   //adding the cloned card template to the gallery display
-  galleryDisplay.append(cardElement);
+
+  galleryDisplay.prepend(cardElement);
 }
 
 initialCards.forEach(renderCard);
@@ -80,7 +95,7 @@ const addImgButton = document.querySelector(".profile__add-button");
 
 //finding the forms
 const profileModalForm = document.querySelector(".modal__container");
-const imgModalForm = document.querySelector(".img-modal__container");
+export const imgModalForm = document.querySelector(".img-modal__container");
 
 //finding form components
 const modalForms = document.querySelectorAll(".modal");
@@ -113,6 +128,17 @@ profileModalForm.addEventListener("submit", handleProfileFormSubmit);
 //event listeners for img modal buttons
 addImgButton.addEventListener("click", displayImgModal);
 imgModalForm.addEventListener("submit", handleImgFormSubmit);
+
+const formElement = document.querySelectorAll(".modal__container");
+const settings = {
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__input-error_active",
+  inactiveButtonClass: "modal__save-button_inactive",
+  formSelector: ".modal__container",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__save-button",
+  fieldsetSelector: ".modal__fieldset",
+};
 
 const formValidator = new FormValidator(settings, formElement);
 

@@ -69,7 +69,7 @@ export default class FormValidator {
     this.toggleButtonState(inputList, buttonElement);
 
     inputList.forEach((inputElement) => {
-      inputElement.addEventListener("input", function () {
+      inputElement.addEventListener("input", () => {
         this._checkInputValidity(formElement, inputElement);
         this.toggleButtonState(inputList, buttonElement);
       });
@@ -77,7 +77,7 @@ export default class FormValidator {
   }
   //enable form validation
 
-  enableValidation(validationConfig) {
+  enableValidation() {
     const formList = Array.from(
       document.querySelectorAll(this.validationConfig.formSelector)
     );

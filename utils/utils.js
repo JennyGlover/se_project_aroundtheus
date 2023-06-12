@@ -1,4 +1,7 @@
 export * from "../utils/utils.js";
+import { renderNewCard } from "../pages/index.js";
+import { imgModalForm } from "../pages/index.js";
+import FormValidator from "../components/FormValidator.js";
 
 //finding the modals display section
 const profileModal = document.querySelector(".profile-modal");
@@ -12,6 +15,8 @@ const imgUrlInput = document.querySelector("#image-input");
 const descriptionInput = document.querySelector("#about-input");
 const userName = document.querySelector(".profile__username");
 const userOccupation = document.querySelector(".profile__occupation");
+
+const formValidator = new FormValidator();
 
 //funtion for adding modal open class
 export function openModal(modal) {
@@ -56,23 +61,6 @@ export function handleProfileFormSubmit(e) {
   closeProfileModal(e);
 }
 
-//function that displays cards
-export function renderCard(data) {
-  //creating the card template
-  const cardElement = createCard(data);
-
-  //adding the cloned card template to the gallery display
-  galleryDisplay.append(cardElement);
-}
-//function that prepends card
-export function renderNewCard(data) {
-  //creating the card template
-  const cardElement = createCard(data);
-
-  //adding the cloned card template to the gallery display
-  galleryDisplay.prepend(cardElement);
-}
-
 //function that save imgs modal inputs
 export function handleImgFormSubmit(e) {
   e.preventDefault();
@@ -87,10 +75,15 @@ export function handleImgFormSubmit(e) {
   imgUrlInput.value = "";
 
   closeImgModal(e);
-  toggleButtonState(
-    Array.from(imgModalForm.querySelectorAll(validationConfig.inputSelector)),
-    imgModalForm.querySelector(validationConfig.submitButtonSelector),
-    validationConfig
+  formValidator.toggleButtonState(
+    Array.from(
+      imgModalForm.querySelectorAll(
+        formValidator.validationConfig.inputSelector
+      )
+    ),
+    imgModalForm.querySelector(
+      formValidator.validationConfig.submitButtonSelector
+    )
   );
 }
 
