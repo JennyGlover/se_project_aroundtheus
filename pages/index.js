@@ -1,13 +1,7 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 
-import {
-  closeModal,
-  displayProfileModal,
-  displayImgModal,
-  handleProfileFormSubmit,
-  handleImgFormSubmit,
-} from "../utils/utils.js";
+import { closeModal, openModal } from "../utils/utils.js";
 
 //Image cards
 const initialCards = [
@@ -45,40 +39,89 @@ const cardData = {
 //finding the card template and gallery section
 const galleryDisplay = document.querySelector(".gallery__cards");
 
+//finding the modals display section
+const profileModal = document.querySelector(".profile-modal");
+const imgModal = document.querySelector(".img-modal");
+const imgDisplayModal = document.querySelector(".display-modal");
+
+//finding form components
+const nameInput = document.querySelector("#name-input");
+const titleInput = document.querySelector("#title-input");
+const imgUrlInput = document.querySelector("#image-input");
+const descriptionInput = document.querySelector("#about-input");
+const userName = document.querySelector(".profile__username");
+const userOccupation = document.querySelector(".profile__occupation");
+
+const formValidator1 = new FormValidator();
+
+//function that opens profile modal
+function displayProfileModal(e) {
+  openModal(profileModal);
+  nameInput.value = userName.textContent;
+  descriptionInput.value = userOccupation.textContent;
+}
+//function that opens img modal
+function displayImgModal(e) {
+  openModal(imgModal);
+}
+
+//function that closes profile modal
+function closeProfileModal(e) {
+  closeModal(profileModal);
+}
+
+function closeImgModal(e) {
+  closeModal(imgModal);
+}
+
+//function that closes img display modal
+function closeImgDisplayModal(e) {
+  closeModal(imgDisplayModal);
+}
+
+//function that saves profile modal inputs
+function handleProfileFormSubmit(e) {
+  e.preventDefault();
+  userName.textContent = nameInput.value;
+  userOccupation.textContent = descriptionInput.value;
+  closeProfileModal(e);
+}
+
+//function that save imgs modal inputs
+function handleImgFormSubmit(e) {
+  e.preventDefault();
+
+  const newCard = {
+    name: titleInput.value,
+    link: imgUrlInput.value,
+  };
+  renderNewCard(newCard);
+
+  titleInput.value = "";
+  imgUrlInput.value = "";
+
+  closeImgModal(e);
+  formValidator2.toggleButtonState(formElement, buttonElement);
+}
+
 //function that creates cards
 function createCard(item) {
-  const card = new Card(cardData, "#profile__card-template");
-  const cardElement = card.getview();
-
-  //finding the card title and image
-  const cardTitle = cardElement.querySelector(".card__title");
-  const cardImage = cardElement.querySelector(".card__image");
-
-  //setting the attributes of the image
-  cardImage.setAttribute("src", item.link);
-  cardImage.setAttribute("alt", item.name);
-
-  //setting the card title
-  cardTitle.textContent = item.name;
-
-  return cardElement;
+  const card = new Card(item, "#profile__card-template");
+  return card.getview();
 }
 
 //function that displays cards
 
 function renderCard(data) {
   //creating the card template
-
   const cardElement = createCard(data);
 
   //adding the cloned card template to the gallery display
-
   galleryDisplay.append(cardElement);
 }
 
 //function that prepends card
-
-export function renderNewCard(data) {
+function renderNewCard(data) {
   //creating the card template
   const cardElement = createCard(data);
 
@@ -98,7 +141,7 @@ const profileModalForm = document.querySelector(".modal__container");
 export const imgModalForm = document.querySelector(".img-modal__container");
 
 //finding form components
-const modalForms = document.querySelectorAll(".modal");
+const modals = document.querySelectorAll(".modal");
 
 // finding all close buttons
 const closeButtons = document.querySelectorAll(".modal__close-button");
@@ -111,7 +154,7 @@ closeButtons.forEach((button) => {
 });
 
 //closing forms with overlay
-modalForms.forEach((form) => {
+modals.forEach((form) => {
   form.addEventListener("mousedown", (evt) => {
     if (evt.target === form) {
       if (form.classList.contains("modal_opened")) {
@@ -129,7 +172,8 @@ profileModalForm.addEventListener("submit", handleProfileFormSubmit);
 addImgButton.addEventListener("click", displayImgModal);
 imgModalForm.addEventListener("submit", handleImgFormSubmit);
 
-const formElement = document.querySelectorAll(".modal__container");
+const formElement = document.querySelector(".modal__container");
+
 const settings = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__input-error_active",
@@ -140,6 +184,6 @@ const settings = {
   fieldsetSelector: ".modal__fieldset",
 };
 
-const formValidator = new FormValidator(settings, formElement);
+const formValidator2 = new FormValidator(settings, formElement);
 
-formValidator.enableValidation();
+formValidator2.enableValidation();

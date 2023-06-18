@@ -63,6 +63,12 @@ export default class Card {
       .content.querySelector(".card")
       .cloneNode(true);
 
+    //Setting the img src and alt attributes
+    const cardImage = this._cardElement.querySelector(".card__image");
+    const cardTitle = this._cardElement.querySelector(".card__title");
+    cardImage.src = this._link;
+    cardImage.alt = this._name;
+    cardTitle.textContent = this._name;
     //setting  event isteners,
     this._setEventListeners();
 
