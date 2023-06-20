@@ -51,8 +51,19 @@ const imgUrlInput = document.querySelector("#image-input");
 const descriptionInput = document.querySelector("#about-input");
 const userName = document.querySelector(".profile__username");
 const userOccupation = document.querySelector(".profile__occupation");
+const imgModalForm = document.querySelector(".img-modal__container");
 
-const formValidator1 = new FormValidator();
+const settings = {
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__input-error_active",
+  inactiveButtonClass: "modal__save-button_inactive",
+  formSelector: ".modal__container",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__save-button",
+  fieldsetSelector: ".modal__fieldset",
+};
+const cardFormValidator = new FormValidator(settings, imgModalForm);
+cardFormValidator.enableValidation();
 
 //function that opens profile modal
 function displayProfileModal(e) {
@@ -101,7 +112,7 @@ function handleImgFormSubmit(e) {
   imgUrlInput.value = "";
 
   closeImgModal(e);
-  formValidator2.toggleButtonState(formElement, buttonElement);
+  cardFormValidator.toggleButtonState();
 }
 
 //function that creates cards
@@ -138,7 +149,6 @@ const addImgButton = document.querySelector(".profile__add-button");
 
 //finding the forms
 const profileModalForm = document.querySelector(".modal__container");
-export const imgModalForm = document.querySelector(".img-modal__container");
 
 //finding form components
 const modals = document.querySelectorAll(".modal");
@@ -174,16 +184,6 @@ imgModalForm.addEventListener("submit", handleImgFormSubmit);
 
 const formElement = document.querySelector(".modal__container");
 
-const settings = {
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__input-error_active",
-  inactiveButtonClass: "modal__save-button_inactive",
-  formSelector: ".modal__container",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__save-button",
-  fieldsetSelector: ".modal__fieldset",
-};
+const profileFormValidator = new FormValidator(settings, formElement);
 
-const formValidator2 = new FormValidator(settings, formElement);
-
-formValidator2.enableValidation();
+profileFormValidator.enableValidation();

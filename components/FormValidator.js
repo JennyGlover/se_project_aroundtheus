@@ -35,11 +35,17 @@ export default class FormValidator {
 
   //func to check if form has an invalid input
   _hasInvalidInput(inputList) {
+    if (!inputList) {
+      return false;
+    }
     return inputList.some((inputElement) => !inputElement.validity.valid);
   }
 
   //func to toggle submit button
   toggleButtonState(inputList, buttonElement) {
+    if (!inputList) {
+      return false;
+    }
     if (this._hasInvalidInput(inputList)) {
       buttonElement.classList.add(this._settings.inactiveButtonClass);
       buttonElement.setAttribute("disabled", "true");
