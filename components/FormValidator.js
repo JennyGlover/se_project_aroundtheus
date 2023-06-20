@@ -42,10 +42,13 @@ export default class FormValidator {
   }
 
   //func to toggle submit button
-  toggleButtonState(inputList, buttonElement) {
-    if (!inputList) {
-      return false;
-    }
+  toggleButtonState() {
+    const inputList = Array.from(
+      this._formElement.querySelectorAll(this._settings.inputSelector)
+    );
+    const buttonElement = this._formElement.querySelector(
+      this._settings.submitButtonSelector
+    );
     if (this._hasInvalidInput(inputList)) {
       buttonElement.classList.add(this._settings.inactiveButtonClass);
       buttonElement.setAttribute("disabled", "true");
