@@ -61,7 +61,7 @@ export default class FormValidator {
   //adding handlers
   _setEventListeners() {
     const inputList = Array.from(
-      this._formElement.querySelectorAll(this._settings.inputSelector)
+      this._formElement.queryelectorAll(this.settings.inputSelector)
     );
     const buttonElement = this._formElement.querySelector(
       this._settings.submitButtonSelector

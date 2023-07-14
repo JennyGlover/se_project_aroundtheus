@@ -3,11 +3,25 @@ export default class Popup {
     this._popup = document.querySelector(popupSelector);
   }
 
-  open() {}
+  open(popup) {
+    popup.classList.add("modal_open");
+  }
 
-  close() {}
+  close(popup) {
+    popup.classList.remove("modal_open");
+  }
 
-  _handleEscClose() {}
+  _handleEscClose(evt) {
+    if (evt.key === "Escape") {
+      const openedModal = document.querySelector(".modal_opened");
+      this.close(openedModal);
+    }
+  }
 
-  setEventListeners() {}
+  setEventListeners() {
+    const closeButton = this._popup.querySelector(".modal__close-button");
+    closeButton.addEventListener("click", () => {
+      this.close(this._popup);
+    });
+  }
 }
