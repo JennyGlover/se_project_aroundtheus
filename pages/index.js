@@ -50,7 +50,7 @@ const titleInput = document.querySelector("#title-input");
 const imgUrlInput = document.querySelector("#image-input");
 const descriptionInput = document.querySelector("#about-input");
 const userName = document.querySelector(".profile__username");
-const userOccupation = document.querySelector(".profile__occupation");
+const userOccupation = documenGETt.querySelector(".profile__occupation");
 const imgModalForm = document.querySelector(".img-modal__container");
 
 const settings = {
@@ -118,7 +118,7 @@ function handleImgFormSubmit(e) {
 //function that creates cards
 function createCard(item) {
   const card = new Card(item, "#profile__card-template");
-  return card.getview();
+  return card.getView();
 }
 
 //function that displays cards

@@ -3,12 +3,12 @@ export default class Popup {
     this._popup = document.querySelector(popupSelector);
   }
 
-  open(popup) {
-    popup.classList.add("modal_open");
+  open() {
+    this._popup.classList.add("modal_open");
   }
 
-  close(popup) {
-    popup.classList.remove("modal_open");
+  close() {
+    this._popup.classList.remove("modal_open");
   }
 
   _handleEscClose(evt) {

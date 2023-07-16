@@ -1,10 +1,12 @@
 import { openModal } from "../utils/utils.js";
+import Popup from "./Popup.js";
 
 export default class Card {
-  constructor({ name, link }, cardSelector) {
+  constructor({ name, link }, cardSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _setEventListeners() {
@@ -42,21 +44,23 @@ export default class Card {
   }
 
   _handleOpenDisplay() {
-    const displayImage = this._link;
-    const displayText = this._name;
-    const displayAlt = this._name;
+    // const displayImage = this._link;
+    // const displayText = this._name;
+    // const displayAlt = this._name;
 
-    openModal(document.querySelector(".display-modal"));
-    document
-      .querySelector(".modal__image-display")
-      .setAttribute("src", displayImage);
-    document.querySelector(".modal__paragraph").textContent = displayText;
-    document
-      .querySelector(".modal__image-display")
-      .setAttribute("alt", displayAlt);
+    // openModal(document.querySelector(".display-modal"));
+    // document
+    //   .querySelector(".modal__image-display")
+    //   .setAttribute("src", displayImage);
+    // document.querySelector(".modal__paragraph").textContent = displayText;
+    // document
+    //   .querySelector(".modal__image-display")
+    //   .setAttribute("alt", displayAlt);
+
+    this._handleCardClick(this._link, this._name);
   }
 
-  getview() {
+  getView() {
     //getting the card view
     this._cardElement = document
       .querySelector(this._cardSelector)
