@@ -1,6 +1,8 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-
+import PopupWithForm from "../components/PopupWithForm.js";
+import Popup from "../components/Popup.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 import { closeModal, openModal } from "../utils/utils.js";
 
 //Image cards
@@ -50,7 +52,7 @@ const titleInput = document.querySelector("#title-input");
 const imgUrlInput = document.querySelector("#image-input");
 const descriptionInput = document.querySelector("#about-input");
 const userName = document.querySelector(".profile__username");
-const userOccupation = documenGETt.querySelector(".profile__occupation");
+const userOccupation = document.querySelector(".profile__occupation");
 const imgModalForm = document.querySelector(".img-modal__container");
 
 const settings = {
@@ -62,8 +64,13 @@ const settings = {
   submitButtonSelector: ".modal__save-button",
   fieldsetSelector: ".modal__fieldset",
 };
+
 const cardFormValidator = new FormValidator(settings, imgModalForm);
 cardFormValidator.enableValidation();
+
+const profileFormModal = new PopupWithForm(profileModal, handleImgFormSubmit);
+const imgFormModal = new PopupWithForm(imgDisplayModal, handleImgFormSubmit);
+const imgDisplayPopup = new PopupWithImage(imgModal);
 
 //function that opens profile modal
 function displayProfileModal(e) {
@@ -85,9 +92,9 @@ function closeImgModal(e) {
   closeModal(imgModal);
 }
 
-//function that closes img display modal
-function closeImgDisplayModal(e) {
-  closeModal(imgDisplayModal);
+// function that closes img display modal
+function handleCardClick(imageUrl, caption) {
+  imgDisplayPopup.open(imageUrl, caption);
 }
 
 //function that saves profile modal inputs
@@ -117,7 +124,7 @@ function handleImgFormSubmit(e) {
 
 //function that creates cards
 function createCard(item) {
-  const card = new Card(item, "#profile__card-template");
+  const card = new Card(item, "#profile__card-template", handleCardClick);
   return card.getView();
 }
 

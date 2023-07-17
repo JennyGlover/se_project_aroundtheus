@@ -1,25 +1,17 @@
-import Popup from Popup.js
+import Popup from "./Popup";
 
 export default class PopupWithImage extends Popup {
-  constructor(popupSelector , {name, link}){
-    super({ popupSelector, });
-    this._popupImage = this._popupElement.querySelector(".display-modal");
-    this._name = name;
-    this._link = link;
+  constructor(popupSelector) {
+    super({ popupSelector });
+    this._popupImage = this._popupElement.querySelector(
+      ".modal__image-display"
+    );
+    this._caption = this.this._popupElement.querySelector(".modal__paragraph");
   }
 
-  open(){    
+  open(imgUrl, caption) {
+    this._popupImage.src = imgUrl;
+    this._caption.textContent = caption;
     super.open();
-
-    const displayImage = this._link;
-    const displayText = this._name;
-    const displayAlt = this._name;
-    document
-      .querySelector(".modal__image-display")
-      .setAttribute("src", displayImage);
-    document.querySelector(".modal__paragraph").textContent = displayText;
-    document
-      .querySelector(".modal__image-display")
-      .setAttribute("alt", displayAlt);
   }
 }

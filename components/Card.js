@@ -1,5 +1,4 @@
 import { openModal } from "../utils/utils.js";
-import Popup from "./Popup.js";
 
 export default class Card {
   constructor({ name, link }, cardSelector, handleCardClick) {
@@ -44,19 +43,6 @@ export default class Card {
   }
 
   _handleOpenDisplay() {
-    // const displayImage = this._link;
-    // const displayText = this._name;
-    // const displayAlt = this._name;
-
-    // openModal(document.querySelector(".display-modal"));
-    // document
-    //   .querySelector(".modal__image-display")
-    //   .setAttribute("src", displayImage);
-    // document.querySelector(".modal__paragraph").textContent = displayText;
-    // document
-    //   .querySelector(".modal__image-display")
-    //   .setAttribute("alt", displayAlt);
-
     this._handleCardClick(this._link, this._name);
   }
 
