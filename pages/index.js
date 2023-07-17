@@ -1,7 +1,6 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import { closeModal, openModal } from "../utils/utils.js";
 
@@ -68,9 +67,12 @@ const settings = {
 const cardFormValidator = new FormValidator(settings, imgModalForm);
 cardFormValidator.enableValidation();
 
-const profileFormModal = new PopupWithForm(profileModal, handleImgFormSubmit);
-const imgFormModal = new PopupWithForm(imgDisplayModal, handleImgFormSubmit);
-const imgDisplayPopup = new PopupWithImage(imgModal);
+const profileFormModal = new PopupWithForm(
+  ".profile-modal",
+  handleImgFormSubmit
+);
+const imgFormModal = new PopupWithForm(".display-modal", handleImgFormSubmit);
+const imgDisplayPopup = new PopupWithImage(".img-modal");
 
 //function that opens profile modal
 function displayProfileModal(e) {
