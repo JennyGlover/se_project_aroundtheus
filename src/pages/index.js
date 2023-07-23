@@ -3,7 +3,6 @@ import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
-import { closeModal } from "../utils/utils.js";
 import Section from "../components/Section.js";
 import "../pages/index.css";
 
@@ -40,23 +39,17 @@ const cardData = {
   link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
 };
 
-//finding the card template and gallery section
+//Finding the card template and gallery section
 const galleryDisplay = document.querySelector(".gallery__cards");
 
-//finding the modals display section
-const profileModal = document.querySelector(".profile-modal");
-const imgModal = document.querySelector(".img-modal");
-const imgDisplayModal = document.querySelector(".display-modal");
-
-//finding form components
+//Finding form components
 const nameInput = document.querySelector("#name-input");
 const titleInput = document.querySelector("#title-input");
 const imgUrlInput = document.querySelector("#image-input");
 const descriptionInput = document.querySelector("#about-input");
-const userName = document.querySelector(".profile__username");
-const userOccupation = document.querySelector(".profile__occupation");
 const imgModalForm = document.querySelector(".img-modal__container");
 
+//Form validation settings
 const settings = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__input-error_active",
@@ -66,6 +59,8 @@ const settings = {
   submitButtonSelector: ".modal__save-button",
   fieldsetSelector: ".modal__fieldset",
 };
+
+// Creating a new instances of Classes
 
 const cardFormValidator = new FormValidator(settings, imgModalForm);
 cardFormValidator.enableValidation();
@@ -142,42 +137,14 @@ function createCard(item) {
 const editButton = document.querySelector(".profile__edit-button");
 const addImgButton = document.querySelector(".profile__add-button");
 
-//finding the forms
-const profileModalForm = document.querySelector(".modal__container");
-
-//finding form components
-const modals = document.querySelectorAll(".modal");
-
-// finding all close buttons
-const closeButtons = document.querySelectorAll(".modal__close-button");
-
-closeButtons.forEach((button) => {
-  const modal = button.closest(".modal");
-  button.addEventListener("click", () => closeModal(modal));
-});
-
-//closing forms with overlay
-modals.forEach((form) => {
-  form.addEventListener("mousedown", (evt) => {
-    if (evt.target === form) {
-      if (form.classList.contains("modal_opened")) {
-        closeModal(form);
-      }
-    }
-  });
-});
-
-//event listeners profile modal for buttons
+//Adding Event Listeners
 editButton.addEventListener("click", displayProfileModal);
-
-// profileModalForm.addEventListener("submit", handleProfileFormSubmit);
 profileFormModal.setEventListeners();
-
-//event listeners for img modal buttons
 addImgButton.addEventListener("click", displayImgModal);
-
-// imgModalForm.addEventListener("submit", handleImgFormSubmit);
 imgFormModal.setEventListeners();
+imgDisplayPopup.setEventListeners();
+
+//Form Validation
 
 const formElement = document.querySelector(".modal__container");
 
