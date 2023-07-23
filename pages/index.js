@@ -2,7 +2,8 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import { closeModal, openModal } from "../utils/utils.js";
+import UserInfo from "../components/UserInfo.js";
+import { closeModal } from "../utils/utils.js";
 
 //Image cards
 const initialCards = [
@@ -67,31 +68,28 @@ const settings = {
 const cardFormValidator = new FormValidator(settings, imgModalForm);
 cardFormValidator.enableValidation();
 
+const userInfo = new UserInfo({
+  usernameSelector: ".profile__username",
+  userJobSelector: ".profile__occupation",
+});
+
 const profileFormModal = new PopupWithForm(
   ".profile-modal",
-  handleImgFormSubmit
+  handleProfileFormSubmit
 );
-const imgFormModal = new PopupWithForm(".display-modal", handleImgFormSubmit);
-const imgDisplayPopup = new PopupWithImage(".img-modal");
+const imgFormModal = new PopupWithForm(".img-modal", handleImgFormSubmit);
+const imgDisplayPopup = new PopupWithImage(".display-modal");
 
 //function that opens profile modal
-function displayProfileModal(e) {
-  openModal(profileModal);
-  nameInput.value = userName.textContent;
-  descriptionInput.value = userOccupation.textContent;
+function displayProfileModal() {
+  const userData = userInfo.getUserInfo();
+  nameInput.value = userData.userName;
+  descriptionInput.value = userData.userJob;
+  profileFormModal.open();
 }
 //function that opens img modal
 function displayImgModal(e) {
-  openModal(imgModal);
-}
-
-//function that closes profile modal
-function closeProfileModal(e) {
-  closeModal(profileModal);
-}
-
-function closeImgModal(e) {
-  closeModal(imgModal);
+  imgFormModal.open();
 }
 
 // function that closes img display modal
@@ -101,10 +99,8 @@ function handleCardClick(imageUrl, caption) {
 
 //function that saves profile modal inputs
 function handleProfileFormSubmit(e) {
-  e.preventDefault();
-  userName.textContent = nameInput.value;
-  userOccupation.textContent = descriptionInput.value;
-  closeProfileModal(e);
+  userInfo.setUserInfo(nameInput.value, descriptionInput.value);
+  profileFormModal.close();
 }
 
 //function that save imgs modal inputs
@@ -120,7 +116,7 @@ function handleImgFormSubmit(e) {
   titleInput.value = "";
   imgUrlInput.value = "";
 
-  closeImgModal(e);
+  imgFormModal.close();
   cardFormValidator.toggleButtonState();
 }
 
@@ -185,11 +181,15 @@ modals.forEach((form) => {
 
 //event listeners profile modal for buttons
 editButton.addEventListener("click", displayProfileModal);
-profileModalForm.addEventListener("submit", handleProfileFormSubmit);
+
+// profileModalForm.addEventListener("submit", handleProfileFormSubmit);
+profileFormModal.setEventListeners();
 
 //event listeners for img modal buttons
 addImgButton.addEventListener("click", displayImgModal);
-imgModalForm.addEventListener("submit", handleImgFormSubmit);
+
+// imgModalForm.addEventListener("submit", handleImgFormSubmit);
+imgFormModal.setEventListeners();
 
 const formElement = document.querySelector(".modal__container");
 

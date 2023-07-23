@@ -4,11 +4,11 @@ export default class Popup {
   }
 
   open() {
-    this._popup.classList.add("modal_open");
+    this._popup.classList.add("modal_opened");
   }
 
   close() {
-    this._popup.classList.remove("modal_open");
+    this._popup.classList.remove("modal_opened");
   }
 
   _handleEscClose(evt) {
