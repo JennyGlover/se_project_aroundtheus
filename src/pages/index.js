@@ -5,6 +5,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import { closeModal } from "../utils/utils.js";
 import Section from "../components/Section.js";
+import "../pages/index.css";
 
 //Image cards
 const initialCards = [

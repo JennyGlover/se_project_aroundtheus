@@ -5,14 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Around The US</title>
   </head>
   <body class="page">
     <div class="page__content">
       <header class="header">
         <img
-          src="images/logo.png"
+          src="<%=require('./images/logo.png') %>"
           class="header__logo"
           alt="Around the US logo"
         />
@@ -21,7 +20,7 @@
         <section class="profile">
           <div class="profile__bio">
             <img
-              src="images/jacques-cousteau.png"
+              src="<%=require('./images/jacques-cousteau.png')%>"
               alt="profile image"
               class="profile__avatar"
             />
@@ -131,7 +130,7 @@
             </div>
             <button class="card__trash-button" type="button">
               <img
-                src="images/trash-solid.svg"
+                src="<%=require('./images/trash-solid.svg')%>"
                 alt="trash button"
                 class="card__trash"
               />
@@ -144,6 +143,5 @@
         <p class="footer__copyright">© 2022 Around The U.S.</p>
       </footer>
     </div>
-    <script  src="pages/index.js" type="module" defer></script>
   </body>
 </html>
