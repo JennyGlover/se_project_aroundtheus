@@ -4,6 +4,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import { closeModal } from "../utils/utils.js";
+import Section from "../components/Section.js";
 
 //Image cards
 const initialCards = [
@@ -73,10 +74,24 @@ const userInfo = new UserInfo({
   userJobSelector: ".profile__occupation",
 });
 
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: (cardData) => {
+      const card = createCard(cardData);
+      section.addItem(card);
+    },
+  },
+  galleryDisplay
+);
+
+section.renderItems();
+
 const profileFormModal = new PopupWithForm(
   ".profile-modal",
   handleProfileFormSubmit
 );
+
 const imgFormModal = new PopupWithForm(".img-modal", handleImgFormSubmit);
 const imgDisplayPopup = new PopupWithImage(".display-modal");
 
@@ -98,24 +113,20 @@ function handleCardClick(imageUrl, caption) {
 }
 
 //function that saves profile modal inputs
-function handleProfileFormSubmit(e) {
+function handleProfileFormSubmit() {
   userInfo.setUserInfo(nameInput.value, descriptionInput.value);
   profileFormModal.close();
 }
 
 //function that save imgs modal inputs
-function handleImgFormSubmit(e) {
-  e.preventDefault();
-
-  const newCard = {
+function handleImgFormSubmit() {
+  const newCardData = {
     name: titleInput.value,
     link: imgUrlInput.value,
   };
-  renderNewCard(newCard);
 
-  titleInput.value = "";
-  imgUrlInput.value = "";
-
+  const newCard = createCard(newCardData);
+  section.addItem(newCard);
   imgFormModal.close();
   cardFormValidator.toggleButtonState();
 }
@@ -126,27 +137,11 @@ function createCard(item) {
   return card.getView();
 }
 
-//function that displays cards
-
-function renderCard(data) {
-  //creating the card template
-  const cardElement = createCard(data);
-
-  //adding the cloned card template to the gallery display
-  galleryDisplay.append(cardElement);
-}
-
-//function that prepends card
-function renderNewCard(data) {
-  //creating the card template
-  const cardElement = createCard(data);
-
-  //adding the cloned card template to the gallery display
-
-  galleryDisplay.prepend(cardElement);
-}
-
-initialCards.forEach(renderCard);
+// //function that prepends card
+// function renderNewCard(data) {
+//   const cardElement = createCard(data);
+//   galleryDisplay.prepend(cardElement);
+// }
 
 //finding the edit button
 const editButton = document.querySelector(".profile__edit-button");
@@ -162,9 +157,7 @@ const modals = document.querySelectorAll(".modal");
 const closeButtons = document.querySelectorAll(".modal__close-button");
 
 closeButtons.forEach((button) => {
-  // find the closest modal
   const modal = button.closest(".modal");
-  // set the listener
   button.addEventListener("click", () => closeModal(modal));
 });
 
