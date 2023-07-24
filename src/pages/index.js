@@ -4,40 +4,8 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
+import { initialCards } from "../utils/constants.js";
 import "../pages/index.css";
-
-//Image cards
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg",
-  },
-];
-
-const cardData = {
-  name: "Yosemite Valley",
-  link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
-};
 
 //Finding the card template and gallery section
 const galleryDisplay = document.querySelector(".gallery__cards");
@@ -66,7 +34,7 @@ const cardFormValidator = new FormValidator(settings, imgModalForm);
 cardFormValidator.enableValidation();
 
 const userInfo = new UserInfo({
-  usernameSelector: ".profile__username",
+  userNameSelector: ".profile__username",
   userJobSelector: ".profile__occupation",
 });
 
@@ -100,6 +68,7 @@ function displayProfileModal() {
 }
 //function that opens img modal
 function displayImgModal(e) {
+  cardFormValidator.toggleButtonState();
   imgFormModal.open();
 }
 
@@ -109,13 +78,13 @@ function handleCardClick(imageUrl, caption) {
 }
 
 //function that saves profile modal inputs
-function handleProfileFormSubmit() {
+function handleProfileFormSubmit(inputValues) {
   userInfo.setUserInfo(nameInput.value, descriptionInput.value);
   profileFormModal.close();
 }
 
 //function that save imgs modal inputs
-function handleImgFormSubmit() {
+function handleImgFormSubmit(inputValues) {
   const newCardData = {
     name: titleInput.value,
     link: imgUrlInput.value,
@@ -124,7 +93,6 @@ function handleImgFormSubmit() {
   const newCard = createCard(newCardData);
   section.addItem(newCard);
   imgFormModal.close();
-  cardFormValidator.toggleButtonState();
 }
 
 //function that creates cards
@@ -145,9 +113,8 @@ imgFormModal.setEventListeners();
 imgDisplayPopup.setEventListeners();
 
 //Form Validation
+const profileForm = document.querySelector(".modal__container");
 
-const formElement = document.querySelector(".modal__container");
-
-const profileFormValidator = new FormValidator(settings, formElement);
+const profileFormValidator = new FormValidator(settings, profileForm);
 
 profileFormValidator.enableValidation();
