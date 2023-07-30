@@ -78,8 +78,8 @@ function handleProfileFormSubmit(formData) {
 //function that save imgs modal inputs
 
 function handleImgFormSubmit(inputValues) {
-  const { title, link } = inputValues;
-  const newCard = renderItems({ title, link });
+  const { name, link } = inputValues;
+  const newCard = createCard({ name, link });
   section.addItem(newCard);
   imgFormModal.close();
 }
