@@ -4,6 +4,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
+import Api from "../components/Api.js";
 import {
   initialCards,
   settings,
@@ -48,6 +49,24 @@ const profileFormModal = new PopupWithForm(
 const imgFormModal = new PopupWithForm(".img-modal", handleImgFormSubmit);
 const imgDisplayPopup = new PopupWithImage(".display-modal");
 
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "d15f0643-7ba6-4697-8a04-5f83082b3085",
+    "Content-Type": "application/json",
+  },
+});
+
+//Loading user info and cards together
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then((results) => {
+    const [userInfo, initialCards] = results;
+    console.log("user info:", userInfo);
+    console.log("Initial cards:", initialCards);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 //function that opens profile modal
 function displayProfileModal() {
   const { name, description } = userInfo.getUserInfo();
