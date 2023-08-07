@@ -18,6 +18,7 @@ export default class Api {
       })
       .catch((err) => {
         console.log("Oh no there was an error: ", err);
+        return [];
       })
       .finally(() => {
         console.log("ok we are done");

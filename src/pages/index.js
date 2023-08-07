@@ -6,7 +6,6 @@ import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import Api from "../components/Api.js";
 import {
-  initialCards,
   settings,
   galleryDisplay,
   nameInput,
@@ -19,27 +18,17 @@ import {
   profileForm,
   nameOfUser,
   jobOfUser,
+  avatarOfUser,
 } from "../utils/constants.js";
 import "../pages/index.css";
 
+let userId;
+let section;
 // Creating a new instances of Classes-----------
 const cardFormValidator = new FormValidator(settings, imgModalForm);
 cardFormValidator.enableValidation();
 
-const userInfo = new UserInfo(nameOfUser, jobOfUser);
-
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: (cardData) => {
-      const card = createCard(cardData);
-      section.addItem(card);
-    },
-  },
-  galleryDisplay
-);
-
-section.renderItems();
+const userInfo = new UserInfo(nameOfUser, jobOfUser, avatarOfUser);
 
 const profileFormModal = new PopupWithForm(
   ".profile-modal",
@@ -57,16 +46,33 @@ const api = new Api({
   },
 });
 
-//Loading user info and cards together
+//Loading user info and cards from the server simultaneously
+
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then((results) => {
-    const [userInfo, initialCards] = results;
-    console.log("user info:", userInfo);
+  .then(([userData, initialCards]) => {
+    userInfo.setUserInfo(userData.name, userData.about);
+    userInfo.setUserAvatar(userData.avatar);
+    userId = userData._id;
+    console.log("user info:", userData);
     console.log("Initial cards:", initialCards);
+
+    section = new Section(
+      {
+        items: initialCards,
+        renderer: (cardData) => {
+          const card = createCard(cardData);
+          section.addItem(card);
+        },
+      },
+      galleryDisplay
+    );
+
+    section.renderItems();
   })
   .catch((error) => {
     console.error(error);
   });
+
 //function that opens profile modal
 function displayProfileModal() {
   const { name, description } = userInfo.getUserInfo();

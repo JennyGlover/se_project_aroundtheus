@@ -48,6 +48,7 @@ export const descriptionInput = document.querySelector("#about-input");
 export const imgModalForm = document.querySelector(".img-modal__container");
 export const jobOfUser = document.querySelector(".profile__occupation");
 export const nameOfUser = document.querySelector(".profile__username");
+export const avatarOfUser = document.querySelector(".profile__avatar");
 
 //finding the edit button
 export const editButton = document.querySelector(".profile__edit-button");
