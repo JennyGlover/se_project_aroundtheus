@@ -4,159 +4,72 @@ export default class Api {
     this._headers = options.headers;
   }
 
+  async _handleApiResponses(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  }
+
+  async _apiRequest(url, options) {
+    return fetch(url, options).then(this._handleApiResponses);
+  }
+
   // Card route methods
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      method: "GET",
+    return this._apiRequest(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log("Oh no there was an error: ", err);
-        return [];
-      })
-      .finally(() => {
-        console.log("ok we are done");
-      });
+    });
   }
 
   createCards() {
-    return fetch(`${this._baseUrl}/cards`, {
+    return this._apiRequest(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log("Oh no there was an error: ", err);
-      })
-      .finally(() => {
-        console.log("ok we are done");
-      });
+    });
   }
 
   deleteCard() {
-    return fetch(`${this._baseUrl}/cards/:cardId`, {
+    return this._apiRequest(`${this._baseUrl}/cards/:cardId`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log("Oh no there was an error: ", err);
-      })
-      .finally(() => {
-        console.log("ok we are done");
-      });
+    });
   }
 
   likeCard() {
-    return fetch(`${this._baseUrl}/cards/:cardId/likes`, {
+    return this._apiRequest(`${this._baseUrl}/cards/:cardId/likes`, {
       method: "PUT",
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log("Oh no there was an error: ", err);
-      })
-      .finally(() => {
-        console.log("ok we are done");
-      });
+    });
   }
 
   unlikeCard() {
-    return fetch(`${this._baseUrl}/cards/:cardId/likes`, {
+    return this._apiRequest(`${this._baseUrl}/cards/:cardId/likes`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log("Oh no there was an error: ", err);
-      })
-      .finally(() => {
-        console.log("ok we are done");
-      });
+    });
   }
 
   //User route methods
 
   getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return this._apiRequest(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log("Oh no there was an error: ", err);
-      })
-      .finally(() => {
-        console.log("ok we are done");
-      });
+    });
   }
 
   updateUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return this._apiRequest(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log("Oh no there was an error: ", err);
-      })
-      .finally(() => {
-        console.log("ok we are done");
-      });
+    });
   }
 
   updateUserAvatar() {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
+    return this._apiRequest(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log("Oh no there was an error: ", err);
-      })
-      .finally(() => {
-        console.log("ok we are done");
-      });
+    });
   }
 }
