@@ -11,6 +11,7 @@ import {
   nameInput,
   titleInput,
   imgUrlInput,
+  initialCards,
   descriptionInput,
   imgModalForm,
   editButton,
@@ -94,10 +95,14 @@ function handleCardClick(imageUrl, caption) {
 
 //function that saves profile modal inputs
 
-function handleProfileFormSubmit(formData) {
-  const { name, description } = formData;
-  userInfo.setUserInfo(name, description);
-  profileFormModal.close();
+function handleProfileFormSubmit({ name, description }) {
+  api
+    .updateUserInfo(name, description)
+    .then(() => {
+      userInfo.setUserInfo(name, description);
+      profileFormModal.close();
+    })
+    .catch(console.error);
 }
 
 //function that save imgs modal inputs

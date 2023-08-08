@@ -22,10 +22,14 @@ export default class Api {
     });
   }
 
-  createCards() {
+  createCards({ name, link }) {
     return this._apiRequest(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
+      body: JSON.stringify({
+        name,
+        link,
+      }),
     });
   }
 
@@ -59,10 +63,14 @@ export default class Api {
     });
   }
 
-  updateUserInfo() {
+  updateUserInfo(name, description) {
     return this._apiRequest(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        about: description,
+      }),
     });
   }
 
