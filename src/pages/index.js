@@ -23,6 +23,8 @@ import {
   avatarOfUser,
   deleteButton,
   deleteForm,
+  avatarForm,
+  avatarUpdateButton,
 } from "../utils/constants.js";
 import "../pages/index.css";
 
@@ -32,11 +34,18 @@ let section;
 const cardFormValidator = new FormValidator(settings, imgModalForm);
 cardFormValidator.enableValidation();
 
+const avatarFormValidator = new FormValidator(settings, avatarForm);
+avatarFormValidator.enableValidation();
+
 const userInfo = new UserInfo(nameOfUser, jobOfUser, avatarOfUser);
 
 const profileFormModal = new PopupWithForm(
   ".profile-modal",
   handleProfileFormSubmit
+);
+const avatarFormModal = new PopupWithForm(
+  ".avatar-modal",
+  handleAvatarFormSubmit
 );
 
 const imgFormModal = new PopupWithForm(".img-modal", handleImgFormSubmit);
@@ -92,6 +101,10 @@ function displayImgModal(e) {
   imgFormModal.open();
 }
 
+function displayAvatarModal() {
+  cardFormValidator.toggleButtonState();
+  avatarFormModal.open();
+}
 // function that closes img display modal
 function handleCardClick(imageUrl, caption) {
   imgDisplayPopup.open(imageUrl, caption);
@@ -100,13 +113,19 @@ function handleCardClick(imageUrl, caption) {
 //function that saves profile modal inputs
 
 function handleProfileFormSubmit({ name, description }) {
+  profileFormModal.setLoading(true);
   api
     .updateUserInfo(name, description)
     .then(() => {
       userInfo.setUserInfo(name, description);
       profileFormModal.close();
     })
-    .catch(console.error);
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      profileFormModal.setLoading(false);
+    });
 }
 
 //function that save imgs modal inputs
@@ -120,6 +139,24 @@ function handleImgFormSubmit({ name, link }) {
       imgFormModal.close();
     })
     .catch(console.error);
+}
+
+//funtion to change avatar
+
+function handleAvatarFormSubmit(inputValue) {
+  avatarFormModal.setLoading(true);
+  api
+    .updateUserAvatar(inputValue.link)
+    .then(() => {
+      userInfo.setUserAvatar(inputValue.link);
+      avatarFormModal.close();
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      avatarFormModal.setLoading(false);
+    });
 }
 
 //function that creates cards
@@ -167,8 +204,9 @@ addImgButton.addEventListener("click", displayImgModal);
 imgFormModal.setEventListeners();
 imgDisplayPopup.setEventListeners();
 deleteCardPopup.setEventListeners();
+avatarFormModal.setEventListeners();
+avatarUpdateButton.addEventListener("click", displayAvatarModal);
 
 //Creating an instance of the form validator
 const profileFormValidator = new FormValidator(settings, profileForm);
-
 profileFormValidator.enableValidation();
