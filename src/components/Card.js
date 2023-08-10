@@ -1,9 +1,15 @@
 export default class Card {
-  constructor({ name, link }, cardSelector, handleCardClick) {
+  constructor(
+    { name, link },
+    cardSelector,
+    handleCardClick,
+    handleDeleteClick
+  ) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
   }
 
   _setEventListeners() {
@@ -18,7 +24,7 @@ export default class Card {
     this._cardElement
       .querySelector(".card__trash")
       .addEventListener("click", () => {
-        this._handleDeleteCard();
+        this._handleDeleteClick();
       });
 
     //opening display
@@ -42,6 +48,10 @@ export default class Card {
 
   _handleOpenDisplay() {
     this._handleCardClick(this._link, this._name);
+  }
+
+  deleteCardElement() {
+    this._cardElement.remove();
   }
 
   getView() {
