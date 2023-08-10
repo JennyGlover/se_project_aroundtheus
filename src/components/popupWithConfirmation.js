@@ -1,8 +1,8 @@
 import Popup from "./Popup.js";
 
 export default class popupWithConfirmation extends Popup {
-  constructor(popupSlector, handleFormSubmit) {
-    super(popupSlector);
+  constructor(popupSelector) {
+    super(popupSelector);
     this._popupForm = this._popup.querySelector(".modal__container");
     this._confirmButton = this._popupForm.querySelector(
       ".modal__confirm-button"
@@ -12,10 +12,27 @@ export default class popupWithConfirmation extends Popup {
 
   close() {
     super.close();
+    this._popupForm.removeEventListener("submit", this._handleFormSubmit);
   }
 
+  _handleFormSubmit = (evt) => {
+    evt.preventDefault();
+
+    if (typeof this._confirmAction === "function") {
+      this._confirmAction();
+    }
+  };
+
   setConfirmAction(action) {
-    this._handleFormSubmit = action;
+    this._confirmAction = action;
+  }
+
+  setLoading(isLoading, loadingText = "Deleting...") {
+    if (isLoading) {
+      this._confirmButtonText = loadingText;
+    } else {
+      this._confirmButtonText = this._confirmButtonText;
+    }
   }
 
   setEventListeners() {

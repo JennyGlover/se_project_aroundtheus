@@ -129,16 +129,32 @@ function createCard(item) {
     "#profile__card-template",
     handleCardClick,
     function handleDeleteCard() {
-      // cardDeletePopup.setLoading(true);
+      deleteCardPopup.setConfirmAction(() => {
+        deleteCardPopup.setLoading(true);
+
+        //Executing the API Call within the confirmation action
+        api
+          .deleteCard(item._id)
+          .then((res) => {
+            card.deleteCardElement(res._id);
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            deleteCardPopup.setLoading(false);
+            deleteCardPopup.close();
+          });
+      });
+      deleteCardPopup.open();
+    },
+    function handleCardLike() {
       api
-        .deleteCard(item._id)
+        .updateLikes(item._id, card.isLiked)
         .then((res) => {
-          card.deleteCardElement(res._id);
-          alert(red._id);
-          deleteCardPopup.close();
+          card.showLikes(res.isLiked);
         })
         .catch(console.error);
-      deleteCardPopup.open();
     }
   );
   return card.getView();

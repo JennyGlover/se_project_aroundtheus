@@ -40,16 +40,9 @@ export default class Api {
     });
   }
 
-  likeCard() {
-    return this._apiRequest(`${this._baseUrl}/cards/:cardId/likes`, {
-      method: "PUT",
-      headers: this._headers,
-    });
-  }
-
-  unlikeCard() {
-    return this._apiRequest(`${this._baseUrl}/cards/:cardId/likes`, {
-      method: "DELETE",
+  updateLikes(cardId, isLiked) {
+    return this._apiRequest(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: isLiked ? "DELETE" : "PUT",
       headers: this._headers,
     });
   }
