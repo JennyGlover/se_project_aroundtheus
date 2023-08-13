@@ -2,15 +2,17 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithConfirmation from "../components/popupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
+import Api from "../components/Api.js";
 import {
-  initialCards,
   settings,
   galleryDisplay,
   nameInput,
   titleInput,
   imgUrlInput,
+  initialCards,
   descriptionInput,
   imgModalForm,
   editButton,
@@ -18,35 +20,80 @@ import {
   profileForm,
   nameOfUser,
   jobOfUser,
+  avatarOfUser,
+  deleteButton,
+  deleteForm,
+  avatarForm,
+  avatarUpdateButton,
 } from "../utils/constants.js";
 import "../pages/index.css";
 
+let userId;
+let section;
 // Creating a new instances of Classes-----------
 const cardFormValidator = new FormValidator(settings, imgModalForm);
 cardFormValidator.enableValidation();
 
-const userInfo = new UserInfo(nameOfUser, jobOfUser);
+const avatarFormValidator = new FormValidator(settings, avatarForm);
+avatarFormValidator.enableValidation();
 
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: (cardData) => {
-      const card = createCard(cardData);
-      section.addItem(card);
-    },
-  },
-  galleryDisplay
-);
-
-section.renderItems();
+const userInfo = new UserInfo(nameOfUser, jobOfUser, avatarOfUser);
 
 const profileFormModal = new PopupWithForm(
   ".profile-modal",
-  handleProfileFormSubmit
+  handleProfileFormSubmit,
+  "Saving..."
+);
+const avatarFormModal = new PopupWithForm(
+  ".avatar-modal",
+  handleAvatarFormSubmit,
+  "Saving..."
 );
 
-const imgFormModal = new PopupWithForm(".img-modal", handleImgFormSubmit);
+const imgFormModal = new PopupWithForm(
+  ".img-modal",
+  handleImgFormSubmit,
+  "Saving..."
+);
 const imgDisplayPopup = new PopupWithImage(".display-modal");
+const deleteCardPopup = new PopupWithConfirmation(
+  ".delete-modal",
+  "Deleting..."
+);
+deleteCardPopup.setEventListeners();
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "d15f0643-7ba6-4697-8a04-5f83082b3085",
+    "Content-Type": "application/json",
+  },
+});
+
+//Loading user info and cards from the server simultaneously
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, initialCards]) => {
+    userInfo.setUserInfo(userData.name, userData.about);
+    userInfo.setUserAvatar(userData.avatar);
+    userId = userData._id;
+    console.log("user info:", userData);
+    console.log("Initial cards:", initialCards);
+
+    section = new Section(
+      {
+        items: initialCards,
+        renderer: (cardData) => {
+          const card = createCard(cardData);
+          section.addItem(card);
+        },
+      },
+      galleryDisplay
+    );
+
+    section.renderItems();
+  })
+  .catch(console.error);
 
 //function that opens profile modal
 function displayProfileModal() {
@@ -62,6 +109,10 @@ function displayImgModal(e) {
   imgFormModal.open();
 }
 
+function displayAvatarModal() {
+  avatarFormValidator.toggleButtonState();
+  avatarFormModal.open();
+}
 // function that closes img display modal
 function handleCardClick(imageUrl, caption) {
   imgDisplayPopup.open(imageUrl, caption);
@@ -69,24 +120,92 @@ function handleCardClick(imageUrl, caption) {
 
 //function that saves profile modal inputs
 
-function handleProfileFormSubmit(formData) {
-  const { name, description } = formData;
-  userInfo.setUserInfo(name, description);
-  profileFormModal.close();
+function handleProfileFormSubmit({ name, description }) {
+  profileFormModal.showLoading();
+  api
+    .updateUserInfo(name, description)
+    .then(() => {
+      userInfo.setUserInfo(name, description);
+      profileFormModal.close();
+    })
+    .catch(console.error)
+    .finally(() => {
+      profileFormModal.hideLoading("Save");
+    });
 }
 
 //function that save imgs modal inputs
 
-function handleImgFormSubmit(inputValues) {
-  const { name, link } = inputValues;
-  const newCard = createCard({ name, link });
-  section.addItem(newCard);
-  imgFormModal.close();
+function handleImgFormSubmit({ name, link }) {
+  imgFormModal.showLoading();
+
+  api
+    .createCards({ name, link })
+    .then((cardData) => {
+      const newCard = createCard(cardData);
+      section.addItem(newCard);
+      imgFormModal.close();
+    })
+    .catch(console.error)
+    .finally(() => {
+      imgFormModal.hideLoading("Save");
+    });
+}
+
+//funtion to change avatar
+
+function handleAvatarFormSubmit(inputValue) {
+  avatarFormModal.showLoading();
+  api
+    .updateUserAvatar(inputValue.link)
+    .then(() => {
+      userInfo.setUserAvatar(inputValue.link);
+      avatarFormModal.close();
+    })
+    .catch(console.error)
+    .finally(() => {
+      avatarFormModal.hideLoading("Save");
+    });
 }
 
 //function that creates cards
 function createCard(item) {
-  const card = new Card(item, "#profile__card-template", handleCardClick);
+  const card = new Card(
+    item,
+    "#profile__card-template",
+    handleCardClick,
+
+    function handleDeleteCard() {
+      deleteCardPopup.setConfirmAction(() => {
+        deleteCardPopup.showLoading();
+
+        //Executing the API Call within the confirmation action
+        api
+          .deleteCard(item._id)
+          .then((res) => {
+            card.deleteCardElement(res._id);
+            deleteCardPopup.close();
+          })
+          .catch(console.error)
+          .finally(() => {
+            deleteCardPopup.hideLoading("Yes");
+          });
+      });
+      deleteCardPopup.open();
+    },
+
+    function handleCardLike() {
+      api
+        .updateLikes(item._id, card.isLiked)
+        .then((res) => {
+          card.showLikes(res.isLiked);
+          card.isLiked = res.isLiked;
+        })
+        .catch(console.error);
+    }
+  );
+  card.showLikes(item.isLiked);
+
   return card.getView();
 }
 
@@ -96,8 +215,9 @@ profileFormModal.setEventListeners();
 addImgButton.addEventListener("click", displayImgModal);
 imgFormModal.setEventListeners();
 imgDisplayPopup.setEventListeners();
+avatarFormModal.setEventListeners();
+avatarUpdateButton.addEventListener("click", displayAvatarModal);
 
 //Creating an instance of the form validator
 const profileFormValidator = new FormValidator(settings, profileForm);
-
 profileFormValidator.enableValidation();
