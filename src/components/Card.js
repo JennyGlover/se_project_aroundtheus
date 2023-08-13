@@ -13,31 +13,35 @@ export default class Card {
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
     this._handleCardLike = handleCardLike;
+
+    //getting the card view
+    this._cardElement = document
+      .querySelector(this._cardSelector)
+      .content.querySelector(".card")
+      .cloneNode(true);
+
+    this._likeIconElement = this._cardElement.querySelector(".card__like-icon");
+    this._trashButtonElement = this._cardElement.querySelector(".card__trash");
+    this._imageElement = this._cardElement.querySelector(".card__image");
   }
 
   _setEventListeners() {
     //card like button
-    this._cardElement
-      .querySelector(".card__like-icon")
-      .addEventListener("click", (e) => {
-        e.preventDefault();
-        this._handleCardLike();
-      });
+    this._likeIconElement.addEventListener("click", (e) => {
+      e.preventDefault();
+      this._handleCardLike();
+    });
 
     //delete button
-    this._cardElement
-      .querySelector(".card__trash")
-      .addEventListener("click", () => {
-        this._handleDeleteClick();
-      });
+    this._trashButtonElement.addEventListener("click", () => {
+      this._handleDeleteClick();
+    });
 
     //opening display
-    this._cardElement
-      .querySelector(".card__image")
-      .addEventListener("click", (e) => {
-        e.preventDefault();
-        this._handleOpenDisplay();
-      });
+    this._imageElement.addEventListener("click", (e) => {
+      e.preventDefault();
+      this._handleOpenDisplay();
+    });
   }
 
   _handleDeleteCard() {
@@ -47,13 +51,9 @@ export default class Card {
 
   _handleLikeIcon() {
     if (this.isLiked) {
-      this._cardElement
-        .querySelector(".card__like-icon")
-        .classList.add("card__like-icon_active");
+      this._likeIconElement.classList.add("card__like-icon_active");
     } else {
-      this._cardElement
-        .querySelector(".card__like-icon")
-        .classList.remove("card__like-icon_active");
+      this._likeIconElement.classList.remove("card__like-icon_active");
     }
   }
 
@@ -71,12 +71,6 @@ export default class Card {
   }
 
   getView() {
-    //getting the card view
-    this._cardElement = document
-      .querySelector(this._cardSelector)
-      .content.querySelector(".card")
-      .cloneNode(true);
-
     //Setting the img src and alt attributes
     const cardImage = this._cardElement.querySelector(".card__image");
     const cardTitle = this._cardElement.querySelector(".card__title");

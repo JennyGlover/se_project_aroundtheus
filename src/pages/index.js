@@ -41,14 +41,20 @@ const userInfo = new UserInfo(nameOfUser, jobOfUser, avatarOfUser);
 
 const profileFormModal = new PopupWithForm(
   ".profile-modal",
-  handleProfileFormSubmit
+  handleProfileFormSubmit,
+  "Saving..."
 );
 const avatarFormModal = new PopupWithForm(
   ".avatar-modal",
-  handleAvatarFormSubmit
+  handleAvatarFormSubmit,
+  "Saving..."
 );
 
-const imgFormModal = new PopupWithForm(".img-modal", handleImgFormSubmit);
+const imgFormModal = new PopupWithForm(
+  ".img-modal",
+  handleImgFormSubmit,
+  "Saving..."
+);
 const imgDisplayPopup = new PopupWithImage(".display-modal");
 const deleteCardPopup = new PopupWithConfirmation(
   ".delete-modal",
@@ -115,7 +121,7 @@ function handleCardClick(imageUrl, caption) {
 //function that saves profile modal inputs
 
 function handleProfileFormSubmit({ name, description }) {
-  profileFormModal.setLoading(true);
+  profileFormModal.showLoading();
   api
     .updateUserInfo(name, description)
     .then(() => {
@@ -124,13 +130,15 @@ function handleProfileFormSubmit({ name, description }) {
     })
     .catch(console.error)
     .finally(() => {
-      profileFormModal.setLoading(false);
+      profileFormModal.hideLoading("Save");
     });
 }
 
 //function that save imgs modal inputs
 
 function handleImgFormSubmit({ name, link }) {
+  imgFormModal.showLoading();
+
   api
     .createCards({ name, link })
     .then((cardData) => {
@@ -138,13 +146,16 @@ function handleImgFormSubmit({ name, link }) {
       section.addItem(newCard);
       imgFormModal.close();
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      imgFormModal.hideLoading("Save");
+    });
 }
 
 //funtion to change avatar
 
 function handleAvatarFormSubmit(inputValue) {
-  avatarFormModal.setLoading(true);
+  avatarFormModal.showLoading();
   api
     .updateUserAvatar(inputValue.link)
     .then(() => {
@@ -153,7 +164,7 @@ function handleAvatarFormSubmit(inputValue) {
     })
     .catch(console.error)
     .finally(() => {
-      avatarFormModal.setLoading(false);
+      avatarFormModal.hideLoading("Save");
     });
 }
 
@@ -177,7 +188,7 @@ function createCard(item) {
           })
           .catch(console.error)
           .finally(() => {
-            deleteCardPopup.hideLoading();
+            deleteCardPopup.hideLoading("Yes");
           });
       });
       deleteCardPopup.open();
@@ -188,10 +199,13 @@ function createCard(item) {
         .updateLikes(item._id, card.isLiked)
         .then((res) => {
           card.showLikes(res.isLiked);
+          card.isLiked = res.isLiked;
         })
         .catch(console.error);
     }
   );
+  card.showLikes(item.isLiked);
+
   return card.getView();
 }
 

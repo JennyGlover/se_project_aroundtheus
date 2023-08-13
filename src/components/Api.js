@@ -16,7 +16,7 @@ export default class Api {
       const res = await fetch(url, options);
       return this._handleApiResponses(res);
     } catch (error) {
-      console.error("API issue");
+      console.error("There is an API issue");
       throw error;
     }
   }
