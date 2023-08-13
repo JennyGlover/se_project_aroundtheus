@@ -110,7 +110,7 @@ function displayImgModal(e) {
 }
 
 function displayAvatarModal() {
-  cardFormValidator.toggleButtonState();
+  avatarFormValidator.toggleButtonState();
   avatarFormModal.open();
 }
 // function that closes img display modal
