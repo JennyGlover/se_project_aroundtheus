@@ -155,8 +155,6 @@
   top: 35%;
 }
 
-
-
 @media screen and (max-width: 620px) {
   .modal__container{
     position: relative;
@@ -166,6 +164,12 @@
     margin: auto;
     border-radius: 10px;
   }
+
+  .delete-modal__container{
+    max-width: none;
+
+  }
+
   .modal__close-button{
     position: absolute;
     background: url("../images/close\ icon.svg") no-repeat center / auto 26px;
@@ -174,6 +178,11 @@
     right: 2px;
     top: -45px;
   }
+
+  .delete-modal__close-button{
+    top: -80px;
+  }
+  
   .modal__fieldset {
     margin: 0;
     padding-left: 22px;

@@ -19,7 +19,8 @@ export default class Card {
     //card like button
     this._cardElement
       .querySelector(".card__like-icon")
-      .addEventListener("click", () => {
+      .addEventListener("click", (e) => {
+        e.preventDefault();
         this._handleCardLike();
       });
 
@@ -33,7 +34,8 @@ export default class Card {
     //opening display
     this._cardElement
       .querySelector(".card__image")
-      .addEventListener("click", () => {
+      .addEventListener("click", (e) => {
+        e.preventDefault();
         this._handleOpenDisplay();
       });
   }
@@ -65,7 +67,7 @@ export default class Card {
   }
 
   deleteCardElement() {
-    this._cardElement.remove();
+    this._handleDeleteCard();
   }
 
   getView() {

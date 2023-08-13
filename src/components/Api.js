@@ -6,24 +6,30 @@ export default class Api {
 
   async _handleApiResponses(res) {
     if (res.ok) {
-      return res.json();
+      return await res.json();
     }
     return Promise.reject(`Error: ${res.status}`);
   }
 
-  async _apiRequest(url, options) {
-    return fetch(url, options).then(this._handleApiResponses);
+  async _request(url, options) {
+    try {
+      const res = await fetch(url, options);
+      return this._handleApiResponses(res);
+    } catch (error) {
+      console.error("API issue");
+      throw error;
+    }
   }
 
   // Card route methods
   getInitialCards() {
-    return this._apiRequest(`${this._baseUrl}/cards`, {
+    return this._request(`${this._baseUrl}/cards`, {
       headers: this._headers,
     });
   }
 
   createCards({ name, link }) {
-    return this._apiRequest(`${this._baseUrl}/cards`, {
+    return this._request(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
@@ -34,14 +40,14 @@ export default class Api {
   }
 
   deleteCard(cardId) {
-    return this._apiRequest(`${this._baseUrl}/cards/${cardId}`, {
+    return this._request(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
     });
   }
 
   updateLikes(cardId, isLiked) {
-    return this._apiRequest(`${this._baseUrl}/cards/${cardId}/likes`, {
+    return this._request(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: isLiked ? "DELETE" : "PUT",
       headers: this._headers,
     });
@@ -50,14 +56,14 @@ export default class Api {
   //User route methods
 
   getUserInfo() {
-    return this._apiRequest(`${this._baseUrl}/users/me`, {
+    return this._request(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: this._headers,
     });
   }
 
   updateUserInfo(name, description) {
-    return this._apiRequest(`${this._baseUrl}/users/me`, {
+    return this._request(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
@@ -68,7 +74,7 @@ export default class Api {
   }
 
   updateUserAvatar(avatarUrl) {
-    return this._apiRequest(`${this._baseUrl}/users/me/avatar`, {
+    return this._request(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({

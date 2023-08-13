@@ -2,7 +2,7 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import popupWithConfirmation from "../components/popupWithConfirmation.js";
+import PopupWithConfirmation from "../components/popupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import Api from "../components/Api.js";
@@ -50,7 +50,11 @@ const avatarFormModal = new PopupWithForm(
 
 const imgFormModal = new PopupWithForm(".img-modal", handleImgFormSubmit);
 const imgDisplayPopup = new PopupWithImage(".display-modal");
-const deleteCardPopup = new popupWithConfirmation(".delete-modal");
+const deleteCardPopup = new PopupWithConfirmation(
+  ".delete-modal",
+  "Deleting..."
+);
+deleteCardPopup.setEventListeners();
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -83,9 +87,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
     section.renderItems();
   })
-  .catch((error) => {
-    console.error(error);
-  });
+  .catch(console.error);
 
 //function that opens profile modal
 function displayProfileModal() {
@@ -120,9 +122,7 @@ function handleProfileFormSubmit({ name, description }) {
       userInfo.setUserInfo(name, description);
       profileFormModal.close();
     })
-    .catch((error) => {
-      console.log(error);
-    })
+    .catch(console.error)
     .finally(() => {
       profileFormModal.setLoading(false);
     });
@@ -151,9 +151,7 @@ function handleAvatarFormSubmit(inputValue) {
       userInfo.setUserAvatar(inputValue.link);
       avatarFormModal.close();
     })
-    .catch((error) => {
-      console.log(error);
-    })
+    .catch(console.error)
     .finally(() => {
       avatarFormModal.setLoading(false);
     });
@@ -165,26 +163,26 @@ function createCard(item) {
     item,
     "#profile__card-template",
     handleCardClick,
+
     function handleDeleteCard() {
       deleteCardPopup.setConfirmAction(() => {
-        deleteCardPopup.setLoading(true);
+        deleteCardPopup.showLoading();
 
         //Executing the API Call within the confirmation action
         api
           .deleteCard(item._id)
           .then((res) => {
             card.deleteCardElement(res._id);
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-          .finally(() => {
-            deleteCardPopup.setLoading(false);
             deleteCardPopup.close();
+          })
+          .catch(console.error)
+          .finally(() => {
+            deleteCardPopup.hideLoading();
           });
       });
       deleteCardPopup.open();
     },
+
     function handleCardLike() {
       api
         .updateLikes(item._id, card.isLiked)
@@ -203,7 +201,6 @@ profileFormModal.setEventListeners();
 addImgButton.addEventListener("click", displayImgModal);
 imgFormModal.setEventListeners();
 imgDisplayPopup.setEventListeners();
-deleteCardPopup.setEventListeners();
 avatarFormModal.setEventListeners();
 avatarUpdateButton.addEventListener("click", displayAvatarModal);
 
