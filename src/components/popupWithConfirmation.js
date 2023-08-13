@@ -11,10 +11,6 @@ export default class PopupWithConfirmation extends Popup {
     this._loadingText = loadingText;
   }
 
-  close() {
-    super.close();
-  }
-
   setConfirmAction(callBack) {
     this._handleFormSubmit = callBack;
   }
