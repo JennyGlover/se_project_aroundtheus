@@ -1,6 +1,6 @@
 # Around The US Responsive project
 
-This is the third project of the Software Engineer program at Practicum by Yandex. It was created using HTML, CSS, and JavaScript based on a responsive design file in Figma.
+This is the third project of the Software Engineer program at Tripleten. It was created using HTML, CSS, and JavaScript based on a responsive design file in Figma.
 
 ## Project features
 
@@ -24,3 +24,4 @@ This is the third project of the Software Engineer program at Practicum by Yande
 ## Link to the live hosted project
 
 https://jennyglover.github.io/se_project_aroundtheus/
+
