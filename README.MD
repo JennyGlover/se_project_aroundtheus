@@ -1,27 +1,32 @@
-# Around The US Responsive project
+# **Around The US - Responsive Web Project** 🌍✨
 
-This is the third project of the Software Engineer program at Tripleten. It was created using HTML, CSS, and JavaScript based on a responsive design file in Figma.
+This project demonstrates a **modern, responsive web design** built with **HTML, CSS, and JavaScript**. Inspired by a Figma prototype, it incorporates best practices in front-end development to deliver an interactive and user-friendly experience.
 
-## Project features
+---
+![Project screenshot](src/images/Around the us .png)
 
-- Semantic HTML5
-- Flexbox
-- Grid
-- Positioning
-- Flat BEM
-- Responsive development
-- CSS pseudo classes
-- arrays
-- objects
-- Functions
-- Loops
+![Project screenshot](src/images/Around the us 2.png)
 
-## Plan on improving the project
+![Project screenshot](src/images/Around the us 3.png)
 
-- Allowing users to change their profile image
-- Allowing users the ability to upload different cards
+## **Key Features**
+- **Clean and Semantic Code**: Structured with HTML5 for better accessibility and readability.
+- **Advanced Layout Techniques**: Utilizes Flexbox, CSS Grid, and precise positioning for a polished design.
+- **BEM Methodology**: Employs the Flat BEM naming convention for scalable and maintainable styles.
+- **Responsive Design**: Adapts seamlessly across devices, ensuring usability on mobile, tablet, and desktop.
+- **Interactive Elements**: Built with JavaScript to handle dynamic data using:
+  - Arrays and objects.
+  - Functions and loops.
+  - CSS pseudo-classes for hover and focus effects.
 
-## Link to the live hosted project
+---
 
-https://jennyglover.github.io/se_project_aroundtheus/
+## **Future Enhancements**
+1. **Profile Customization**: Enable users to change their profile image for a more personalized experience.
+2. **Card Management**: Allow users to upload and display custom cards.
 
+---
+
+## **Live Demo**
+Experience the project in action:  
+[**Around The US - Live Site**](https://jennyglover.github.io/se_project_aroundtheus/)  
