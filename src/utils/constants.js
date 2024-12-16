@@ -48,10 +48,15 @@ export const descriptionInput = document.querySelector("#about-input");
 export const imgModalForm = document.querySelector(".img-modal__container");
 export const jobOfUser = document.querySelector(".profile__occupation");
 export const nameOfUser = document.querySelector(".profile__username");
+export const avatarOfUser = document.querySelector(".profile__avatar");
+export const profileForm = document.querySelector(".profile-modal__container");
+export const deleteForm = document.querySelector(".delete-modal");
+export const deleteButton = document.querySelector(".modal__confirm-button");
+export const avatarForm = document.querySelector(".avatar-modal__container");
+export const avatarUpdateButton = document.querySelector(
+  ".profile__edit-avatar-icon"
+);
 
 //finding the edit button
 export const editButton = document.querySelector(".profile__edit-button");
 export const addImgButton = document.querySelector(".profile__add-button");
-
-//Form Validation
-export const profileForm = document.querySelector(".modal__container");
