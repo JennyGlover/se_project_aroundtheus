@@ -3,7 +3,7 @@
 This project demonstrates a **modern, responsive web design** built with **HTML, CSS, and JavaScript**. Inspired by a Figma prototype, it incorporates best practices in front-end development to deliver an interactive and user-friendly experience.
 
 ---
-![Project screenshot](src/images/Around%20the%20us%20.png)
+![Project screenshot](src/images/Around%the%us.png)
 
 ![Project screenshot](src/images/Around%20the%20us%202.png)
 
