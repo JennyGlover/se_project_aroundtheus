@@ -5,8 +5,6 @@ This project demonstrates a **modern, responsive web design** built with **HTML,
 ---
 ![Project screenshot](src/images/Around%20the%20us.png)
 
-![Project screenshot](src/images/Around%20the%20us%202.png)
-
 ![Project screenshot](src/images/Around%20the%20us%203.png)
 
 ## **Key Features**
